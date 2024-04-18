@@ -3,13 +3,15 @@ import React from "react";
 import { ContentContainer, Header } from "./styles";
 
 import logo from "../../assets/logo.png";
+// import styles from "./styles.scss";
 const layoutStyle = {
   borderRadius: 8,
   overflow: "hidden",
   padding: "20px",
   boxSizing: "border-box",
-  backgroundColor: " #0d1221",
+  backgroundColor: " #9097ad",
   gap: "20px",
+  height: "100vh",
 };
 
 const Layout = ({ children }) => {

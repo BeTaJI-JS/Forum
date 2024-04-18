@@ -2,8 +2,9 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
+    // "plugin:prettier/recommended",
+    // "prettier",
     "airbnb",
-    "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
@@ -21,7 +22,8 @@ module.exports = {
   ],
   rules: {
     "react/jsx-no-target-blank": "off",
-    "newlines-between": "always",
+    // "newlines-between": "always",
+    "newlines-between": 2,
     "eslint no-const-assign": "error",
     "sort-keys/sort-keys-fix": 1,
     "sort-destructure-keys/sort-destructure-keys": 2,

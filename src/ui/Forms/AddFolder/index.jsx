@@ -1,18 +1,17 @@
-import { useCallback, useState, useId } from "react";
+import { useCallback, useState, useId, useEffect } from "react";
 import { ModalForm } from "../../ModalForm";
 import { useDispatch } from "react-redux";
 import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
-import { addItem } from "../../../store/forumsSlice";
+import { addItem, editItem } from "../../../store/forumsSlice";
 
 const AddFolderForm = ({
   isOpenFolderForm,
   onCancle,
   parentId = null,
+  selectedItems,
   length = 0,
 }) => {
-  // надо получать id папки из урлы, useLocation?????  на верхнем уровне
-  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -21,27 +20,45 @@ const AddFolderForm = ({
     onCancle();
   };
 
-  const handleSubmit = useCallback(() => {
-    console.log("ДОБАВИЛ ПАПКУ!");
-    dispatch(
-      addItem({
-        title,
-        id: nanoid(),
-        isFolder: true,
-        // key: `${parentId}-${length}`,
-        parentId,
-      }),
-    );
+  const handleSubmit = useCallback(
+    (values) => {
+      console.log("ДОБАВИЛ ПАПКУ!");
 
-    onClose();
-  }, [dispatch, setTitle, onCancle, title]);
+      if (selectedItems.length > 0) {
+        console.log("values==> FORM", values);
+        dispatch(editItem({ id: selectedItems[0].id, ...values }));
+      } else {
+        dispatch(
+          addItem({
+            title: values.title,
+            id: nanoid(),
+            isFolder: true,
+            // key: `${parentId}-${length}`,
+            key: nanoid(),
+            parentId,
+          }),
+        );
+      }
+
+      onClose();
+    },
+    [dispatch, onCancle, selectedItems],
+  );
+
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      form.setFieldsValue({ title: selectedItems[0].title });
+    }
+  }, [selectedItems.length, form]);
 
   return (
     <ModalForm
-      title={"Добавить папку"}
+      title={
+        selectedItems.length <= 0 ? "Добавить папку" : "Редактировать папку"
+      }
       isOpen={isOpenFolderForm}
       onClose={onClose}
-      onSave={handleSubmit}
+      onSave={form.submit}
     >
       <Form
         name="addFolder"
@@ -54,11 +71,7 @@ const AddFolderForm = ({
         style={{
           maxWidth: 600,
         }}
-        initialValues={{
-          remember: true,
-        }}
         onFinish={handleSubmit}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
         form={form}
       >
@@ -72,7 +85,7 @@ const AddFolderForm = ({
             },
           ]}
         >
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input type="text" />
         </Form.Item>
       </Form>
     </ModalForm>

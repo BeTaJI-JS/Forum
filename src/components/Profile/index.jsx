@@ -14,8 +14,6 @@ const Profile = () => {
   const authUser = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
   const backBtn = useCallback(() => {
     navigate(-1);
   }, [navigate]);
@@ -23,16 +21,6 @@ const Profile = () => {
   const editBtn = useCallback(() => {
     setIsOpenProfileForm(true);
   }, []);
-
-  const changeAvatar = useCallback(() => {
-    const changedHashEmail = CryptoJS.SHA256(
-      authUser.email.toString().toLocaleLowerCase(),
-    );
-
-    const newAvatar = `https://www.gravatar.com/avatar/${changedHashEmail}?d=identicon`;
-    dispatch(editUser({ avatar: newAvatar, id: authUser.id }));
-    dispatch(editAuth({ avatar: newAvatar, id: authUser.id }));
-  }, [authUser]);
 
   return (
     <ContentContainer>
@@ -48,7 +36,7 @@ const Profile = () => {
         <div>Подпись: {authUser.signature}</div>
       </ProfileContainer>
       <button onClick={editBtn}>Редактировать профиль</button>
-      <button onClick={changeAvatar}>Сменить аватар</button>
+
       <ProfileForm
         isOpenProfileForm={isOpenProfileForm}
         setIsOpenProfileForm={setIsOpenProfileForm}

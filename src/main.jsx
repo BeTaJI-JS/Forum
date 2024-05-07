@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./store";
 import { CookiesProvider } from "react-cookie";
 import { BrowserRouter } from "react-router-dom";
+import Root from "./routes/index.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <CookiesProvider>
@@ -14,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
-            <App />
+            <Root />
           </BrowserRouter>
         </PersistGate>
       </Provider>

@@ -52,14 +52,13 @@ const AuthForm = ({ open, setOpen }) => {
       dispatch(
         auth({
           login,
-          password: hashedPassword,
           signature,
           email,
           avatar,
           id: userId,
         }),
-      ); // убрать пароль
-      setCookies("userInfo", { login, password }, { maxAge: 10 });
+      );
+      setCookies("userInfo", { login, password }, { maxAge: 10000 });
       form.resetFields();
       setOpen(false);
     } else {

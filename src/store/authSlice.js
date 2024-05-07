@@ -11,14 +11,9 @@ const authSlice = createSlice({
       return null;
     },
     editAuth(state, action) {
-      // console.log("action", action);
-      // const editItem = state.find((el) => el.id === action.payload.id);
-      // console.log("user EDIT ==== >", editItem);
-      // if (editItem) {
       state.signature = action.payload.signature;
       state.login = action.payload.login;
-      // state.avatar = action.payload.avatar;
-      // }
+
       return state;
     },
   },

@@ -6,11 +6,9 @@ const { reducer: forumsReducer, actions: forumsSliceActions } = createSlice({
   initialState: [],
   reducers: {
     addItem(state, action) {
-      console.log(" forums Slice action.payload--->", action.payload);
       state.push(action.payload);
     },
     editItem(state, action) {
-      console.log("actionpayload EDIT", action.payload);
       const editItem = state.find((el) => el.id === action.payload.id);
 
       Object.keys(action.payload).forEach((key) => {
@@ -18,11 +16,6 @@ const { reducer: forumsReducer, actions: forumsSliceActions } = createSlice({
           editItem[key] = action.payload[key];
         }
       });
-      console.log("editItem EDITED!!!!--->", current(editItem));
-      // if (editItem) {
-      //   editItem.title = action.payload.title;
-      //   editItem.text = action.payload.text;
-      // }
     },
   },
 });

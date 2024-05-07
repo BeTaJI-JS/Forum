@@ -4,7 +4,7 @@ import FileIcon from "../../assets/file.svg?react";
 import FolderIcon from "../../assets/folder.svg?react";
 
 import { Link } from "react-router-dom";
-import EditForm from "../Forms/EditForm";
+
 import ButtonsBar from "../../components/ButtonsBar";
 import AddFolderForm from "../Forms/AddFolder";
 import { useLocation } from "react-router-dom";
@@ -22,9 +22,9 @@ const columns = [
   {
     title: "Название",
     dataIndex: "title",
-    // render: (text, record) => <Link to={`/forum/${record.id}`}>{text}</Link>,
     render: (text, record) => {
       console.log("record", record);
+      //TODO придумать роутинг для записей на форуме( сейчас при вложенной папке запись не открывается)
       return (
         <Link
           to={
@@ -49,18 +49,11 @@ const columns = [
 const Table = ({ data }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  // const selectedRowKeys = useMemo(() => selectedRowIds || [], [selectedRowIds]);
-  // const [isOpenEditForm, setIsOpenEditForm] = useState(false);
 
   const { pathname } = useLocation();
 
   const [isOpenFolderForm, setIsOpenFolderForm] = useState(false);
   const [isOpenItemForm, setIsOpenItemForm] = useState(false);
-
-  // const [isOpenEditForm, setIsOpenEditForm] = useState(false);
-  // const onClose = useCallback(() => {
-  //   setIsOpenEditForm(false);
-  // }, [setIsOpenEditForm]);
 
   const parentId = useMemo(() => {
     const paths = pathname.split("/");
@@ -68,6 +61,7 @@ const Table = ({ data }) => {
     return lastPath;
   }, [pathname]);
   console.log("selectedRows--->", selectedRows);
+
   const selectedItem = useMemo(() => {
     console.log("data table find-->", data);
     return data.find((i) => i.key === selectedRows[0]);
@@ -77,7 +71,6 @@ const Table = ({ data }) => {
 
   const onOpenEditForm = useCallback(() => {
     if (selectedItems[0].isFolder) {
-      alert("asf");
       setIsOpenFolderForm(true);
     } else {
       setIsOpenItemForm(true);
@@ -96,27 +89,17 @@ const Table = ({ data }) => {
         columns={columns}
         rowSelection={{
           selectedRows,
-          // onChange: (_, record) => {
-          //   console.log("agrs slectedRows", record);
-          // },
           onChange: (selectedRowKeys, selectedRows) => {
             console.log("Selected Row Keys:", selectedRowKeys);
             console.log("Selected Rows:", selectedRows);
 
             setSelectedRows(selectedRowKeys);
             setSelectedItems(selectedRows);
-            // return selectedRows;
-            // setSelectedRows(selectedRows);
           },
         }}
         pagination={false}
         dataSource={data}
       />
-      {/* <EditForm
-        editElement={selectedRows}
-        onCancle={onClose}
-        isOpen={isOpenEditForm}
-      /> */}
       <AddFolderForm
         isOpenFolderForm={isOpenFolderForm}
         onCancle={setIsOpenFolderForm}
@@ -129,7 +112,6 @@ const Table = ({ data }) => {
         onCancle={setIsOpenItemForm}
         selectedItems={selectedItems}
       />
-      {/* <EditForm isOpen={isOpenEditForm} onCancle={setIsOpenEditForm} /> */}
     </>
   );
 };

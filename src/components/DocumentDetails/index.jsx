@@ -14,7 +14,6 @@ const DocumentDetails = () => {
   console.log("document===>>>", document);
 
   return (
-    // <AntLayoutWrapper>
     <div
       style={{
         textAlign: "center",
@@ -53,7 +52,6 @@ const DocumentDetails = () => {
         {document?.text}
       </div>
     </div>
-    // </AntLayoutWrapper>
   );
 };
 

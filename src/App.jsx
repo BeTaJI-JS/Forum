@@ -5,8 +5,6 @@ import "./App.css";
 import Table from "./ui/Table";
 
 function App() {
-  // const [selectedRows, setSelectedRows] = useState([]);
-
   const forums = useSelector((state) => {
     return state.forums.filter(
       (el) => el.parentId === null || el.parentId === "forum",
@@ -18,11 +16,7 @@ function App() {
   //! вынести  в комопнеет mainPage то чт овнутри layout - думаю да?
   return (
     <>
-      <Table
-        data={forums}
-        // selectedRowIds={selectedRows}
-        // setSelectedRows={setSelectedRows}
-      />
+      <Table data={forums} />
     </>
   );
 }

@@ -10,28 +10,11 @@ const ButtonsBar = ({
   onEditItem,
   selectedRows,
 }) => {
-  const dispatch = useDispatch(); // TODO тоже убрать отсюда позже
-  console.log("selectedRows buttonsBar", selectedRows);
   const authUser = useSelector((state) => state.auth);
-  console.log("authUser", authUser);
+
   const disabledRules = useMemo(() => {
     return !authUser || selectedRows.length > 1;
   }, [authUser, selectedRows]);
-
-  // const addElem = useCallback(
-  //   () =>
-  //     dispatch(
-  //       addItem({
-  //         title: "Заголовок записи",
-  //         text: "Текс записи",
-  //         id: nanoid(),
-  //         key: nanoid(),
-  //         isFolder: false,
-  //         parentId: null,
-  //       }),
-  //     ),
-  //   [dispatch],
-  // );
 
   return (
     <>

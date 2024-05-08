@@ -6,9 +6,10 @@ import FolderIcon from "../../assets/folder.svg?react";
 import { Link } from "react-router-dom";
 
 import ButtonsBar from "../../components/ButtonsBar";
-import AddFolderForm from "../Forms/AddFolder";
+
 import { useLocation } from "react-router-dom";
 import ItemForm from "../Forms/ItemForm";
+import FolderForm from "../Forms/FolderForm";
 
 const columns = [
   {
@@ -102,7 +103,7 @@ const Table = ({ data }) => {
         pagination={false}
         dataSource={data}
       />
-      <AddFolderForm
+      <FolderForm
         isOpenFolderForm={isOpenFolderForm}
         onCancle={setIsOpenFolderForm}
         parentId={parentId}

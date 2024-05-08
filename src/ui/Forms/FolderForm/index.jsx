@@ -5,7 +5,7 @@ import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
 import { addItem, editItem } from "../../../store/forumsSlice";
 
-const AddFolderForm = ({
+const FolderForm = ({
   isOpenFolderForm,
   onCancle,
   parentId = null,
@@ -91,4 +91,4 @@ const AddFolderForm = ({
     </ModalForm>
   );
 };
-export default AddFolderForm;
+export default FolderForm;

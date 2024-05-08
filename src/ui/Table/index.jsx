@@ -23,14 +23,16 @@ const columns = [
     title: "Название",
     dataIndex: "title",
     render: (text, record) => {
-      console.log("record", record);
+      const parts = window.location.pathname.split("/");
+
+      console.log("parts", parts);
       //TODO придумать роутинг для записей на форуме( сейчас при вложенной папке запись не открывается)
       return (
         <Link
           to={
             record.isFolder
               ? `${window.location.pathname}/${record.id}`
-              : `${window.location.pathname}/document/${record.id}`
+              : `/forum/document/${parts.slice(2).join("/")}/${record.id}`
           }
         >
           {text}
@@ -60,7 +62,7 @@ const Table = ({ data }) => {
     const lastPath = paths[paths.length - 1];
     return lastPath;
   }, [pathname]);
-  console.log("selectedRows--->", selectedRows);
+  console.log("parentId--->", parentId);
 
   const selectedItem = useMemo(() => {
     console.log("data table find-->", data);

@@ -42,7 +42,7 @@ const AddFolderForm = ({
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems],
+    [dispatch, onCancle, selectedItems, parentId],
   );
 
   useEffect(() => {

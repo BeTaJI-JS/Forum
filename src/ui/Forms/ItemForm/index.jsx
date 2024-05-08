@@ -43,7 +43,7 @@ const ItemForm = ({
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems],
+    [dispatch, onCancle, selectedItems, parentId],
   );
 
   useEffect(() => {

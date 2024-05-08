@@ -1,22 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddFolderForm from "../../ui/Forms/AddFolder";
+
 import { useSelector } from "react-redux";
-import Card from "../../ui/Card";
+
 import Table from "../../ui/Table";
 
 const NestedContent = () => {
+  const forumsData = useSelector((state) => state.forums);
+
   const { pathname } = useLocation();
-  console.log("pathname====>", pathname);
   const navigate = useNavigate();
 
-  const forums = useSelector((state) => {
+  const forums = useMemo(() => {
     const paths = pathname.split("/");
     const lastPath = paths[paths.length - 1];
-
-    return state.forums.filter((el) => el.parentId === lastPath);
+    return forumsData.filter((el) => el.parentId === lastPath);
   });
 
+  console.log("pathname NestedContent====>", pathname);
   console.log("forums nested----->>>", forums);
 
   const backBtn = useCallback(() => {
@@ -25,21 +26,6 @@ const NestedContent = () => {
 
   return (
     <>
-      <div>
-        Проверка связи -этот компонент еще в стадии разработки. Продумать как
-        делать испторию айдишек
-      </div>
-      {/* {forums?.map((forum) => (
-        <Card
-          key={forum.id}
-          onClick={() => {
-            return navigate(`/${pathname}/${forum.id}`);
-          }}
-        >
-          <div>{forum.title}</div>
-          <div>{forum.text}</div>
-        </Card> */}
-      {/* ))} */}
       <Table data={forums} />
       <button onClick={backBtn}>Назад </button>
     </>

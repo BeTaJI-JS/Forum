@@ -8,6 +8,8 @@ import store, { persistor } from "./store";
 import { CookiesProvider } from "react-cookie";
 import { BrowserRouter } from "react-router-dom";
 import Root from "./routes/index.jsx";
+import { AntLayoutWrapper } from "./ui/commonStyles.js";
+import Header from "./components/Header/index.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <CookiesProvider>
@@ -15,7 +17,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
-            <Root />
+            <AntLayoutWrapper>
+              <Header />
+              <Root />
+            </AntLayoutWrapper>
           </BrowserRouter>
         </PersistGate>
       </Provider>

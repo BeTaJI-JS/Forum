@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { AntLayoutWrapper } from "../../ui/layout/styles";
 
 const DocumentDetails = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const pathIds = params["*"];
+  console.log("pathIds===>", pathIds);
+  const { folderPath, id } = useMemo(() => {
+    return {
+      folderPath: pathIds.split("/").slice(0, -1).join("/"),
+      id: pathIds.split("/").at(-1),
+    };
+  }, [pathIds]);
+
+  console.log("folderPath, id ", { folderPath, id });
 
   const document = useSelector((state) => {
     return state.forums.find((el) => el.id === id);

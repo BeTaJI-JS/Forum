@@ -1,13 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { ContentContainer } from "../../ui/layout/styles";
 import { ProfileContainer } from "./styles";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileForm from "../../ui/Forms/Profile";
-import CryptoJS from "crypto-js";
-import { editUser } from "../../store/usersSlice";
-import { editAuth } from "../../store/authSlice";
-import { nanoid } from "nanoid";
 
 const Profile = () => {
   const [isOpenProfileForm, setIsOpenProfileForm] = useState(false);

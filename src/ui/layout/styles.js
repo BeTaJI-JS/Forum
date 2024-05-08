@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Layout } from "antd";
 
 export const Header = styled.div`
   border: 1px solid red;
@@ -23,14 +22,4 @@ export const ContentContainer = styled.div`
   background-color: #fafafae0;
   overflow-y: auto;
 };
-`;
-
-export const AntLayoutWrapper = styled(Layout)`
-  height: 100vh;
-  border-radius: 8px;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #9097ad;
-  gap: 20px;
-  overflow: hidden;
 `;

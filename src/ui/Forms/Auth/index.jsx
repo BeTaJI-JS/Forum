@@ -13,32 +13,40 @@ import bcrypt from "bcryptjs";
 
 const AuthForm = ({ open, setOpen }) => {
   const dispatch = useDispatch();
+
+  const users = useSelector((state) => state.users);
+
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
-  const [isRegistration, setIsRegistration] = useState(false);
-
   const [signature, setSignature] = useState("");
+  const [isRegistration, setIsRegistration] = useState(false);
 
   const [_, setCookies] = useCookies();
 
   const [form] = Form.useForm();
 
-  const users = useSelector((state) => state.users);
-  console.log("USERS==>", users);
+  console.log("USERS state==>", users);
 
   const hashedPassword = useMemo(() => {
     return bcrypt.hashSync(password, 10);
   }, [password]);
 
+  //TODO мой вариант
+  // const hashedEmail = useMemo(() => {
+  //   return CryptoJS.SHA256(email.toString().toLocaleLowerCase())
+  // }, [email]);
+
+  //TODO решение от gpt с добалением hex - но оно тоже не фурычит
   const hashedEmail = useMemo(() => {
-    return CryptoJS.SHA256(email.toString().toLocaleLowerCase());
+    return CryptoJS.SHA256(email.toString().toLocaleLowerCase()).toString(
+      CryptoJS.enc.Hex,
+    );
   }, [email]);
 
   const avatar = useMemo(() => {
     return `https://www.gravatar.com/avatar/${hashedEmail}?d=identicon`;
-  }, [email]);
+  }, [email, hashedEmail]);
 
   const userId = useMemo(() => {
     return nanoid();

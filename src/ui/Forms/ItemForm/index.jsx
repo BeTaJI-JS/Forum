@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
 import { useCallback, useEffect } from "react";
-import { addItem, editItem } from "../../../store/forumsSlice";
+import { addItem, editItem } from "../../../store/forums";
 
 // import MarkdownEditor from "@uiw/react-markdown-editor";
 

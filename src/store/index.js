@@ -11,14 +11,14 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import authReducer from "./authSlice";
-import usersReducer from "./usersSlice";
-import forums from "./forumsSlice";
+import auth from "./auth";
+import users from "./users";
+import forums from "./forums";
 
 const rootReducer = combineReducers({
   forums,
-  auth: authReducer,
-  users: usersReducer,
+  auth,
+  users,
 });
 
 const persistConfig = {

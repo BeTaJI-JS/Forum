@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from "../../../store/authSlice";
+import { auth } from "../../../store/auth";
 import React, { useCallback, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import { Button, Form, Input } from "antd";
-import { setUser } from "../../../store/usersSlice";
+import { setUser } from "../../../store/users";
 import CryptoJS from "crypto-js";
 import { useCookies } from "react-cookie";
 import { ModalForm } from "../../ModalForm";

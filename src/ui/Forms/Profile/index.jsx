@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { ModalForm } from "../../ModalForm";
-import { editUser } from "../../../store/usersSlice";
-import { editAuth } from "../../../store/authSlice";
+import { editUser } from "../../../store/users";
+import { editAuth } from "../../../store/auth";
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { Markdown } from "../../commonStyles";
 

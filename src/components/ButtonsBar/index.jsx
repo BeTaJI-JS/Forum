@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
 import { HeaderControls } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem } from "../../store/forumsSlice";
+import { addItem } from "../../store/forums";
 import { nanoid } from "nanoid";
 
 const ButtonsBar = ({

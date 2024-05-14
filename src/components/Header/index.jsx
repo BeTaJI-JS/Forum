@@ -6,10 +6,10 @@ import IconUser from "../../assets/user.svg?react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../../ui/Forms/Auth";
-import { removeAuth } from "../../store/authSlice";
+import { removeAuth } from "../../store/auth";
 import { persistor } from "../../store";
 import { useCookies } from "react-cookie";
-import { removeUsers } from "../../store/usersSlice";
+import { removeUsers } from "../../store/users";
 
 export const Header = () => {
   const dispatch = useDispatch(); // TODO тоже убрать отсюда позже

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ModalForm } from "../../ModalForm";
 import { editUser } from "../../../store/usersSlice";
 import { editAuth } from "../../../store/authSlice";
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import { Markdown } from "../../commonStyles";
 
 const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
 
   const handleSubmit = useCallback(
     (values) => {
+      console.log("values ,", values);
       dispatch(
         editUser({
           login: values.login,
@@ -74,8 +77,19 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
           <Form.Item label="Логин" name="login">
             <Input type="text" />
           </Form.Item>
-          <Form.Item label="Подпись" name="signature">
+          {/* <Form.Item label="Подпись" name="signature">
             <Input type="text" />
+          </Form.Item> */}
+          <Form.Item label="Подпись" name="signature">
+            <Markdown
+              className="markdown-editor"
+              value={form.getFieldValue("signature")}
+              onChange={(signature) => form.setFieldsValue({ signature })}
+              height="100px"
+              theme={"light"}
+              toolbars={["bold", "italic", "image", " quote"]}
+              placeholder={"Введите подпись"}
+            />
           </Form.Item>
         </Form>
       </ModalForm>

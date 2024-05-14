@@ -5,6 +5,7 @@ module.exports = {
     // "plugin:prettier/recommended",
     // "prettier",
     "airbnb",
+    "airbnb/hooks",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",

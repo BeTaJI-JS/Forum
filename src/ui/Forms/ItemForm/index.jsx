@@ -6,6 +6,8 @@ import { nanoid } from "nanoid";
 import { useCallback, useEffect } from "react";
 import { addItem, editItem } from "../../../store/forumsSlice";
 
+// import MarkdownEditor from "@uiw/react-markdown-editor";
+
 const ItemForm = ({
   isOpenItemForm,
   onCancle,
@@ -104,16 +106,6 @@ const ItemForm = ({
           >
             <Input.TextArea type="text" />
           </Form.Item>
-          {/* <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item> */}
         </Form>
       </ModalForm>
     </>

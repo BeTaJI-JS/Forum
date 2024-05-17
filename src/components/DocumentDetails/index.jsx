@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
 import { useSelector } from "react-redux";
+
 import ButtonsBar from "../ButtonsBar";
-import AnswerForm from "../../ui/Forms/AnswerForm";
+import AnswerForm from "ui/Forms/AnswerForm";
 import Comments from "../Comments";
 
 const DocumentDetails = () => {
@@ -12,10 +11,9 @@ const DocumentDetails = () => {
   const [isEditAnswerForm, setIsEditAnswerForm] = useState(false);
   const [editItem, setEditItem] = useState(null);
 
-  console.log("isOpenAnswerForm==>", isOpenAnswerForm);
   const params = useParams();
   const pathIds = params["*"];
-  console.log("pathIds===>", pathIds);
+
   const { folderPath, id } = useMemo(() => {
     return {
       folderPath: pathIds.split("/").slice(0, -1).join("/"),
@@ -29,16 +27,14 @@ const DocumentDetails = () => {
     return state.forums.find((el) => el.id === id);
   });
   const comments = useSelector((state) => state.comments);
-  console.log("comments state===============++>>>>>>>", comments);
+
   const currentComments = useMemo(() => comments.filter((el) => el.docId === id), [comments, id]);
   console.log("currentComments", currentComments);
-  console.log("document===>>>", document);
 
   return (
     <>
       {/* {currentComments.length < 1 && ( */}
-      <ButtonsBar customButton titleButton={"Ответить"} onCustomClick={() => setIsAnswerForm(true)} />
-
+      <ButtonsBar customButton titleButton={"Ответить"} onCustomClick={() => setIsAnswerForm(true)} onBackNavigate />
       <div
         style={{
           textAlign: "center",

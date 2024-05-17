@@ -6,6 +6,7 @@ import { nanoid } from "nanoid";
 import { useCallback, useEffect } from "react";
 
 import { addComment, editComment } from "../../../store/comments";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 // import MarkdownEditor from "@uiw/react-markdown-editor";
 
@@ -68,15 +69,11 @@ const AnswerForm = ({
       <ModalForm
         isOpen={isOpenAnswerForm}
         onClose={onClose}
-        title={
-          !editItem
-            ? "Добавление ответа на сообщение"
-            : "Редактирование ответа на сообщение"
-        }
+        title={!editItem ? "Добавление ответа на сообщение" : "Редактирование ответа на сообщение"}
         onSave={form.submit}
       >
         <Form
-          name="answerForm"
+          name='answerForm'
           labelCol={{
             span: 8,
           }}
@@ -87,12 +84,12 @@ const AnswerForm = ({
             maxWidth: 600,
           }}
           onFinish={handleSubmit}
-          autoComplete="off"
+          autoComplete='off'
           form={form}
         >
           <Form.Item
-            label="Текст ответа"
-            name="text"
+            label='Текст ответа'
+            name='text'
             rules={[
               {
                 required: true,
@@ -100,7 +97,12 @@ const AnswerForm = ({
               },
             ]}
           >
-            <Input.TextArea type="text" />
+            <MarkdownEditor
+              value={form.getFieldValue("text")}
+              onChange={(text) => form.setFieldValue({ text })}
+              toolbars={["bold", "italic", "image", " quote"]}
+              placeholder={"Текст ответа"}
+            />
           </Form.Item>
         </Form>
       </ModalForm>

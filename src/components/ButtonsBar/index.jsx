@@ -1,11 +1,14 @@
 import { useMemo } from "react";
 import { HeaderControls } from "./styles";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import React, { useCallback, useState } from "react";
 
 const ButtonsBar = ({
   onItemCreate,
   onFolderCreate,
   onEditItem,
+  onBackNavigate,
   selectedRows,
   customButton,
   titleButton,
@@ -13,15 +16,20 @@ const ButtonsBar = ({
   disabledCustomButton,
 }) => {
   const authUser = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const disabledRules = useMemo(() => {
     return !authUser || selectedRows?.length > 1;
   }, [authUser, selectedRows]);
 
+  const backBtn = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
   return (
     <>
       <HeaderControls>
-        <div>Каталог форумов</div>
+        {!onBackNavigate ? <div>Каталог форумов</div> : <button onClick={backBtn}>Назад к форумам</button>}
         {onItemCreate && (
           <button onClick={onItemCreate} disabled={disabledRules}>
             Добавить форум

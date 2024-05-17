@@ -5,7 +5,10 @@ import { ModalForm } from "ui/ModalForm";
 import { editUser } from "store/users";
 import { editAuth } from "store/auth";
 
-import { Markdown } from "ui/commonStyles";
+// import { Markdown } from "ui/commonStyles";
+
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import styles from "./styles.module.scss";
 
 const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
   const dispatch = useDispatch();
@@ -72,8 +75,8 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
             <Input type='text' />
           </Form.Item>
           <Form.Item label='Подпись' name='signature'>
-            <Markdown
-              // className="markdown-editor"
+            <MarkdownEditor
+              className={styles.customMdEditor}
               value={form.getFieldValue("signature")}
               onChange={(signature) => form.setFieldsValue({ signature })}
               height='200px'

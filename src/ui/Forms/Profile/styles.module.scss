@@ -1,0 +1,13 @@
+.customMdEditor {
+  background: rgb(171, 136, 240);
+
+  /* & .md-editor-content {
+    border: 2px solid red;
+  } */
+
+  /* Используем уникальный селектор, чтобы изменить стили внутри .customMdEditor */
+}
+
+.mdEditor.customMdEditor .md-editor-content {
+  border: 2px solid red;
+}

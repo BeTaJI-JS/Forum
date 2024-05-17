@@ -52,7 +52,7 @@ export const Header = () => {
           <img href='#' src={logo} alt='logo' />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          {authUser?.login && <button onClick={() => navigate("/profile")}>Личный кабинет</button>}
+          {authUser?.login && <button onClick={() => navigate("forum/profile")}>Личный кабинет</button>}
           {authUser?.login || "не авторизованный пользователь"}
           <IconUser onClick={() => setOpenAuthModal((prev) => !prev)} />
           {authUser?.login && (

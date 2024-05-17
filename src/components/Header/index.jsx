@@ -15,7 +15,7 @@ export const Header = () => {
   const dispatch = useDispatch(); // TODO тоже убрать отсюда позже
   const [openAuthModal, setOpenAuthModal] = useState(false);
 
-  const [cookies, removeCookies] = useCookies(["userInfo"], { path: "/forum" });
+  const [cookies, removeCookies] = useCookies(["userInfo"]);
 
   const navigate = useNavigate();
 
@@ -23,37 +23,35 @@ export const Header = () => {
 
   const authUser = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (!cookies.userInfo) {
-      console.log("Сброс авторизации");
-      dispatch(removeAuth());
-    }
-  }, [dispatch, cookies]);
+  // useEffect(() => {
+  //   if (!cookies.userInfo) {
+  //     console.log("Сброс авторизации");
+  //     dispatch(removeAuth());
+  //   }
+  // }, [dispatch, cookies]);
 
-  useEffect(() => {
-    return () => {
-      persistor.flush().then(() => {
-        console.log("persistor.purge()!!!! чистим локалсторадж");
-        persistor.purge();
-        removeUsers();
-        if (cookies.userInfo) {
-          cookies.removeCookies("userInfo");
-          // removeCookies("userInfo");
-        }
-      });
-    };
-  }, [persistor, cookies, removeCookies]);
+  // useEffect(() => {
+  //   return () => {
+  //     persistor.flush().then(() => {
+  //       console.log("persistor.purge()!!!! чистим локалсторадж");
+  //       persistor.purge();
+  //       removeUsers();
+  //       if (cookies.userInfo) {
+  //         cookies.removeCookies("userInfo");
+  //         // removeCookies("userInfo");
+  //       }
+  //     });
+  //   };
+  // }, [persistor, cookies, removeCookies, removeUsers]);
 
   return (
     <>
       <HeaderContent>
         <div>
-          <img href="#" src={logo} alt="logo" />
+          <img href='#' src={logo} alt='logo' />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          {authUser?.login && (
-            <button onClick={() => navigate("/profile")}>Личный кабинет</button>
-          )}
+          {authUser?.login && <button onClick={() => navigate("/profile")}>Личный кабинет</button>}
           {authUser?.login || "не авторизованный пользователь"}
           <IconUser onClick={() => setOpenAuthModal((prev) => !prev)} />
           {authUser?.login && (

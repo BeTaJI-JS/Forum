@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import React, { useCallback, useEffect } from "react";
+import { Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { ModalForm } from "../../ModalForm";
-import { editUser } from "../../../store/users";
-import { editAuth } from "../../../store/auth";
-import MarkdownEditor from "@uiw/react-markdown-editor";
-import { Markdown } from "../../commonStyles";
+import { ModalForm } from "ui/ModalForm";
+import { editUser } from "store/users";
+import { editAuth } from "store/auth";
+
+import { Markdown } from "ui/commonStyles";
 
 const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
   const dispatch = useDispatch();
@@ -17,11 +17,10 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
   const onCancle = useCallback(() => {
     form.resetFields();
     setIsOpenProfileForm(false);
-  }, [setIsOpenProfileForm]);
+  }, [setIsOpenProfileForm, form]);
 
   const handleSubmit = useCallback(
     (values) => {
-      console.log("values ,", values);
       dispatch(
         editUser({
           login: values.login,
@@ -39,7 +38,7 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
 
       onCancle();
     },
-    [dispatch, authUser.id, onCancle],
+    [dispatch, authUser?.id, onCancle, form],
   );
 
   useEffect(() => {
@@ -49,18 +48,13 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
         signature: authUser.signature,
       });
     }
-  }, [authUser.login, authUser.signature, form, isOpenProfileForm]);
+  }, [authUser?.login, authUser?.signature, form, isOpenProfileForm]);
 
   return (
     <>
-      <ModalForm
-        isOpen={isOpenProfileForm}
-        title={"Редактирование профиля"}
-        onClose={onCancle}
-        onSave={form.submit}
-      >
+      <ModalForm isOpen={isOpenProfileForm} title={"Редактирование профиля"} onClose={onCancle} onSave={form.submit}>
         <Form
-          name="profile"
+          name='profile'
           labelCol={{
             span: 8,
           }}
@@ -71,22 +65,18 @@ const ProfileForm = ({ isOpenProfileForm, setIsOpenProfileForm }) => {
             maxWidth: 600,
           }}
           onFinish={handleSubmit}
-          autoComplete="off"
+          autoComplete='off'
           form={form}
         >
-          <Form.Item label="Логин" name="login">
-            <Input type="text" />
+          <Form.Item label='Логин' name='login'>
+            <Input type='text' />
           </Form.Item>
-          {/* <Form.Item label="Подпись" name="signature">
-            <Input type="text" />
-          </Form.Item> */}
-          <Form.Item label="Подпись" name="signature">
+          <Form.Item label='Подпись' name='signature'>
             <Markdown
-              className="markdown-editor"
+              // className="markdown-editor"
               value={form.getFieldValue("signature")}
               onChange={(signature) => form.setFieldsValue({ signature })}
-              height="100px"
-              theme={"light"}
+              height='200px'
               toolbars={["bold", "italic", "image", " quote"]}
               placeholder={"Введите подпись"}
             />

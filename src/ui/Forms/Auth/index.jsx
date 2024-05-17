@@ -59,11 +59,12 @@ const AuthForm = ({ open, setOpen }) => {
     if (findUser) {
       dispatch(
         auth({
-          login,
-          signature,
-          email,
-          avatar,
-          id: userId,
+          // login,
+          // signature,
+          // email,
+          // avatar,
+          // id: userId,
+          ...findUser,
         }),
       );
       setCookies("userInfo", { login, password }, { maxAge: 10000 });

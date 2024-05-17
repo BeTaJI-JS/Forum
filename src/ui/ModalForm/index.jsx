@@ -1,16 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 
 import { Button, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-export const ModalForm = ({
-  children,
-  disableFooter,
-  onClose,
-  title,
-  isOpen,
-  onSave,
-}) => {
+export const ModalForm = ({ children, disableFooter, onClose, title, isOpen, onSave }) => {
   const dispatch = useDispatch();
 
   const onCancel = useCallback(() => {
@@ -29,15 +22,10 @@ export const ModalForm = ({
     () => [
       ...(!disableFooter
         ? [
-            <Button key="cancel" onClick={onCancel}>
+            <Button key='cancel' onClick={onCancel}>
               Отменить
             </Button>,
-            <Button
-              htmlType="submit"
-              key="submit"
-              type="primary"
-              onClick={onSaveHandler}
-            >
+            <Button htmlType='submit' key='submit' type='primary' onClick={onSaveHandler}>
               Сохранить
             </Button>,
           ]
@@ -47,13 +35,7 @@ export const ModalForm = ({
   );
 
   return (
-    <Modal
-      afterClose={onClose}
-      footer={footer}
-      open={isOpen}
-      title={title}
-      onCancel={onCancel}
-    >
+    <Modal afterClose={onClose} footer={footer} open={isOpen} title={title} onCancel={onCancel}>
       {children}
     </Modal>
   );

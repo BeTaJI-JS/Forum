@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Table as TableAntD } from "antd";
-import FileIcon from "../../assets/file.svg?react";
-import FolderIcon from "../../assets/folder.svg?react";
+import FileIcon from "assets/file.svg?react";
+import FolderIcon from "assets/folder.svg?react";
 
 import { Link } from "react-router-dom";
 
-import ButtonsBar from "../../components/ButtonsBar";
+import ButtonsBar from "components/ButtonsBar";
 
 import { useLocation } from "react-router-dom";
-import ItemForm from "../Forms/ItemForm";
-import FolderForm from "../Forms/FolderForm";
+import ItemForm from "ui/Forms/ItemForm";
+import FolderForm from "ui/Forms/FolderForm";
 
 const columns = [
   {

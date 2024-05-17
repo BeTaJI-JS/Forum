@@ -4,6 +4,7 @@ import { ProfileContainer } from "./styles";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProfileForm from "../../ui/Forms/Profile";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 const Profile = () => {
   const [isOpenProfileForm, setIsOpenProfileForm] = useState(false);
@@ -26,10 +27,11 @@ const Profile = () => {
       </div>
       <ProfileContainer>
         <div style={{ display: "flex", gap: "50px", alignItems: "center" }}>
-          <img src={authUser.avatar} alt="аватар пользователя" />
-          <div>{authUser.login}</div>
+          <img src={authUser?.avatar} alt="аватар пользователя" />
+          <div>{authUser?.login}</div>
         </div>
-        <div>Подпись: {authUser.signature}</div>
+        {/* <div>Подпись: {authUser?.signature}</div> */}
+        <MarkdownEditor.Markdown source={authUser?.signature} />
       </ProfileContainer>
       <button onClick={editBtn}>Редактировать профиль</button>
 

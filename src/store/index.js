@@ -14,11 +14,13 @@ import storage from "redux-persist/lib/storage";
 import auth from "./auth";
 import users from "./users";
 import forums from "./forums";
+import comments from "./comments";
 
 const rootReducer = combineReducers({
   forums,
   auth,
   users,
+  comments,
 });
 
 const persistConfig = {
@@ -39,4 +41,5 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
 export default store;

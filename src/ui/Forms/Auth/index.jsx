@@ -39,9 +39,7 @@ const AuthForm = ({ open, setOpen }) => {
 
   //TODO решение от gpt с добалением hex - но оно тоже не фурычит
   const hashedEmail = useMemo(() => {
-    return CryptoJS.SHA256(email.toString().toLocaleLowerCase()).toString(
-      CryptoJS.enc.Hex,
-    );
+    return CryptoJS.SHA256(email.toString().toLocaleLowerCase()).toString(CryptoJS.enc.Hex);
   }, [email]);
 
   const avatar = useMemo(() => {
@@ -52,22 +50,15 @@ const AuthForm = ({ open, setOpen }) => {
     return nanoid();
   }, []);
   const handleSubmit = () => {
-    const findUser = users.find(
-      (el) => el.login === login && bcrypt.compareSync(password, el.password),
-    );
+    const findUser = users.find((el) => el.login === login && bcrypt.compareSync(password, el.password));
 
     if (findUser) {
       dispatch(
         auth({
-          // login,
-          // signature,
-          // email,
-          // avatar,
-          // id: userId,
           ...findUser,
         }),
       );
-      setCookies("userInfo", { login, password }, { maxAge: 10000 });
+      setCookies("userInfo", { login, password }, { maxAge: 60 * 1000 * 120 });
       form.resetFields();
       setOpen(false);
     } else {
@@ -105,17 +96,13 @@ const AuthForm = ({ open, setOpen }) => {
         <ModalForm
           isOpen={open}
           onClose={onCancle}
-          title={
-            !isRegistration
-              ? "Авторизация пользователя"
-              : "Регистрация пользователя"
-          }
+          title={!isRegistration ? "Авторизация пользователя" : "Регистрация пользователя"}
           disableFooter
         >
           {!isRegistration && (
             <>
               <Form
-                name="auth"
+                name='auth'
                 labelCol={{
                   span: 8,
                 }}
@@ -130,12 +117,12 @@ const AuthForm = ({ open, setOpen }) => {
                 }}
                 onFinish={handleSubmit}
                 onFinishFailed={onFinishFailed}
-                autoComplete="off"
+                autoComplete='off'
                 form={form}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
+                  label='Username'
+                  name='username'
                   rules={[
                     {
                       required: true,
@@ -143,14 +130,11 @@ const AuthForm = ({ open, setOpen }) => {
                     },
                   ]}
                 >
-                  <Input
-                    value={login}
-                    onChange={(e) => setLogin(e.target.value)}
-                  />
+                  <Input value={login} onChange={(e) => setLogin(e.target.value)} />
                 </Form.Item>
                 <Form.Item
-                  label="Password"
-                  name="password"
+                  label='Password'
+                  name='password'
                   rules={[
                     {
                       required: true,
@@ -158,10 +142,7 @@ const AuthForm = ({ open, setOpen }) => {
                     },
                   ]}
                 >
-                  <Input.Password
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Item>
                 <Form.Item
                   wrapperCol={{
@@ -169,22 +150,20 @@ const AuthForm = ({ open, setOpen }) => {
                     span: 16,
                   }}
                 >
-                  <Button type="primary" htmlType="submit">
+                  <Button type='primary' htmlType='submit'>
                     Submit
                   </Button>
                 </Form.Item>
               </Form>
               <Form.Item style={{ display: "flex", justifyContent: "center" }}>
-                <a onClick={() => setIsRegistration(true)}>
-                  Нет аккаунта? Зарегистрируй!
-                </a>
+                <a onClick={() => setIsRegistration(true)}>Нет аккаунта? Зарегистрируй!</a>
               </Form.Item>
             </>
           )}
           {isRegistration && (
             <>
               <Form
-                name="registration"
+                name='registration'
                 labelCol={{
                   span: 8,
                 }}
@@ -199,12 +178,12 @@ const AuthForm = ({ open, setOpen }) => {
                 }}
                 onFinish={handleRegistrationSubmit}
                 onFinishFailed={onFinishFailed}
-                autoComplete="off"
+                autoComplete='off'
                 form={form}
               >
                 <Form.Item
-                  label="Username"
-                  name="username"
+                  label='Username'
+                  name='username'
                   rules={[
                     {
                       required: true,
@@ -212,14 +191,11 @@ const AuthForm = ({ open, setOpen }) => {
                     },
                   ]}
                 >
-                  <Input
-                    value={login}
-                    onChange={(e) => setLogin(e.target.value)}
-                  />
+                  <Input value={login} onChange={(e) => setLogin(e.target.value)} />
                 </Form.Item>
                 <Form.Item
-                  label="Password"
-                  name="password"
+                  label='Password'
+                  name='password'
                   rules={[
                     {
                       required: true,
@@ -227,22 +203,13 @@ const AuthForm = ({ open, setOpen }) => {
                     },
                   ]}
                 >
-                  <Input.Password
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Item>
-                <Form.Item label="email" name="email">
-                  <Input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                <Form.Item label='email' name='email'>
+                  <Input value={email} onChange={(e) => setEmail(e.target.value)} />
                 </Form.Item>
-                <Form.Item label="signature" name="signature">
-                  <Input
-                    value={signature}
-                    onChange={(e) => setSignature(e.target.value)}
-                  />
+                <Form.Item label='signature' name='signature'>
+                  <Input value={signature} onChange={(e) => setSignature(e.target.value)} />
                 </Form.Item>
                 <Form.Item
                   wrapperCol={{
@@ -250,15 +217,13 @@ const AuthForm = ({ open, setOpen }) => {
                     span: 16,
                   }}
                 >
-                  <Button type="primary" htmlType="submit">
+                  <Button type='primary' htmlType='submit'>
                     Зарегистрироваться
                   </Button>
                 </Form.Item>
               </Form>
               <Form.Item style={{ display: "flex", justifyContent: "center" }}>
-                <a onClick={() => setIsRegistration(false)}>
-                  Уже есть аккаунт - перейти к авторизации
-                </a>
+                <a onClick={() => setIsRegistration(false)}>Уже есть аккаунт - перейти к авторизации</a>
               </Form.Item>
             </>
           )}

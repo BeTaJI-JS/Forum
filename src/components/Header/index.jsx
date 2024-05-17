@@ -23,12 +23,13 @@ export const Header = () => {
 
   const authUser = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (!cookies.userInfo) {
-  //     console.log("Сброс авторизации");
-  //     dispatch(removeAuth());
-  //   }
-  // }, [dispatch, cookies]);
+  console.log("cookies.userInfo===>", cookies.userInfo);
+  useEffect(() => {
+    if (!cookies.userInfo) {
+      console.log("Сброс авторизации");
+      dispatch(removeAuth());
+    }
+  }, [dispatch, cookies, removeAuth]);
 
   // useEffect(() => {
   //   return () => {

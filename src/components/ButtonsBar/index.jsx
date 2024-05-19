@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { HeaderControls } from "./styles";
+import { Button, HeaderControls } from "./styles";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 
 const ButtonsBar = ({
   onItemCreate,
@@ -31,24 +31,24 @@ const ButtonsBar = ({
       <HeaderControls>
         {!onBackNavigate ? <div>Каталог форумов</div> : <button onClick={backBtn}>Назад к форумам</button>}
         {onItemCreate && (
-          <button onClick={onItemCreate} disabled={disabledRules || selectedRows.length >= 1}>
+          <Button onClick={onItemCreate} disabled={disabledRules || selectedRows.length >= 1} className=''>
             Добавить форум
-          </button>
+          </Button>
         )}
         {onEditItem && (
-          <button onClick={onEditItem} disabled={disabledRules}>
+          <Button onClick={onEditItem} disabled={disabledRules}>
             Редактировать
-          </button>
+          </Button>
         )}
         {onFolderCreate && (
-          <button onClick={onFolderCreate} disabled={disabledRules || selectedRows.length >= 1}>
+          <Button onClick={onFolderCreate} disabled={disabledRules || selectedRows.length >= 1}>
             Добавить Папку
-          </button>
+          </Button>
         )}
         {customButton && (
-          <button disabled={disabledCustomButton} onClick={onCustomClick}>
+          <Button disabled={disabledCustomButton} onClick={onCustomClick}>
             {titleButton}
-          </button>
+          </Button>
         )}
       </HeaderControls>
     </>

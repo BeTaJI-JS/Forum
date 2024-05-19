@@ -8,14 +8,10 @@ import { addItem, editItem } from "../../../store/forums";
 
 // import MarkdownEditor from "@uiw/react-markdown-editor";
 
-const ItemForm = ({
-  isOpenItemForm,
-  onCancle,
-  selectedItems,
-  parentId = null,
-}) => {
+const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  console.log("parentId ITEM FORM!!!!!!!!!!!!!!!!=====>>>", parentId);
 
   const onClose = () => {
     form.resetFields();
@@ -45,7 +41,7 @@ const ItemForm = ({
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems, parentId],
+    [dispatch, onCancle, selectedItems, parentId, form],
   );
 
   useEffect(() => {
@@ -55,20 +51,18 @@ const ItemForm = ({
         text: selectedItems[0].text,
       });
     }
-  }, [selectedItems.length, form]);
+  }, [form, selectedItems]);
   console.log("selectedItems В ФОРМЕ АЙТЕМА", selectedItems);
   return (
     <>
       <ModalForm
         isOpen={isOpenItemForm}
         onClose={onClose}
-        title={
-          selectedItems.length <= 0 ? "Добавить запись" : "Редактировать запись"
-        }
+        title={selectedItems.length <= 0 ? "Добавить запись" : "Редактировать запись"}
         onSave={form.submit}
       >
         <Form
-          name="itemForm"
+          name='itemForm'
           labelCol={{
             span: 8,
           }}
@@ -79,12 +73,12 @@ const ItemForm = ({
             maxWidth: 600,
           }}
           onFinish={handleSubmit}
-          autoComplete="off"
+          autoComplete='off'
           form={form}
         >
           <Form.Item
-            label="Название темы"
-            name="title"
+            label='Название темы'
+            name='title'
             rules={[
               {
                 required: true,
@@ -92,11 +86,11 @@ const ItemForm = ({
               },
             ]}
           >
-            <Input type="text" />
+            <Input type='text' />
           </Form.Item>
           <Form.Item
-            label="Текст записи"
-            name="text"
+            label='Текст записи'
+            name='text'
             rules={[
               {
                 required: true,
@@ -104,7 +98,7 @@ const ItemForm = ({
               },
             ]}
           >
-            <Input.TextArea type="text" />
+            <Input.TextArea type='text' />
           </Form.Item>
         </Form>
       </ModalForm>

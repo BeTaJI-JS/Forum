@@ -6,6 +6,7 @@ const { reducer: forumsReducer, actions: forumsSliceActions } = createSlice({
   initialState: [],
   reducers: {
     addItem(state, action) {
+      console.log("forums STORE!!!!_!_!_!_!_!__!_!====>>>", action);
       state.push(action.payload);
     },
     editItem(state, action) {

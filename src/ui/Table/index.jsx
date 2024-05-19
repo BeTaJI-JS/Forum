@@ -33,7 +33,7 @@ const columns = [
           to={
             record.isFolder
               ? `${window.location.pathname}/${record.id}`
-              : `/forum/document/${parts.slice(2).join("/")}/${record.id}`
+              : `/forum/document${parts.slice(2).join("/")}${record.id}`
           }
         >
           {text}
@@ -52,7 +52,7 @@ const columns = [
 const Table = ({ data }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-
+  console.log("data===>>>", data);
   const { pathname } = useLocation();
 
   const [isOpenFolderForm, setIsOpenFolderForm] = useState(false);
@@ -61,9 +61,10 @@ const Table = ({ data }) => {
   const parentId = useMemo(() => {
     const paths = pathname.split("/");
     const lastPath = paths[paths.length - 1];
+    console.log("lastPath", lastPath);
     return lastPath;
-  }, [pathname]);
-  console.log("parentId--->", parentId);
+  }, [pathname, selectedRows]);
+  console.log("parentId TABLE--->", parentId);
 
   const selectedItem = useMemo(() => {
     console.log("data table find-->", data);

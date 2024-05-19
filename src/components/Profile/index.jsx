@@ -29,10 +29,8 @@ const Profile = () => {
         <div style={{ display: "flex", gap: "50px", alignItems: "center" }}>
           Подпись: <MarkdownView source={authUser?.signature} className='markdownView' />
         </div>
-        {/* <MarkdownEditor.Markdown source={authUser?.signature} /> */}
       </ProfileContainer>
       <button onClick={editBtn}>Редактировать профиль</button>
-
       <ProfileForm isOpenProfileForm={isOpenProfileForm} setIsOpenProfileForm={setIsOpenProfileForm} />
     </ContentContainer>
   );

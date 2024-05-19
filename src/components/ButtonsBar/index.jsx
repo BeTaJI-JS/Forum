@@ -31,7 +31,7 @@ const ButtonsBar = ({
       <HeaderControls>
         {!onBackNavigate ? <div>Каталог форумов</div> : <button onClick={backBtn}>Назад к форумам</button>}
         {onItemCreate && (
-          <button onClick={onItemCreate} disabled={disabledRules}>
+          <button onClick={onItemCreate} disabled={disabledRules || selectedRows.length >= 1}>
             Добавить форум
           </button>
         )}
@@ -41,7 +41,7 @@ const ButtonsBar = ({
           </button>
         )}
         {onFolderCreate && (
-          <button onClick={onFolderCreate} disabled={disabledRules}>
+          <button onClick={onFolderCreate} disabled={disabledRules || selectedRows.length >= 1}>
             Добавить Папку
           </button>
         )}

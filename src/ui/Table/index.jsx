@@ -33,7 +33,7 @@ const columns = [
           to={
             record.isFolder
               ? `${window.location.pathname}/${record.id}`
-              : `/forum/document${parts.slice(2).join("/")}${record.id}`
+              : `/Forum/document/${parts.slice(2).join("/")}/${record.id}`
           }
         >
           {text}

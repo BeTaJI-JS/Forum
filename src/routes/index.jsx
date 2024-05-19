@@ -13,7 +13,7 @@ const Root = () => {
     <>
       <Routes>
         <Route
-          path='/forum/profile'
+          path='/Forum/profile'
           element={
             <>
               <Profile />
@@ -21,7 +21,7 @@ const Root = () => {
           }
         />
         <Route
-          path='/forum'
+          path='/Forum'
           exact
           element={
             <Layout>
@@ -30,7 +30,7 @@ const Root = () => {
           }
         />
         <Route
-          path='/forum/document/*'
+          path='/Forum/document/*'
           element={
             <Layout>
               <DocumentDetails />
@@ -38,7 +38,7 @@ const Root = () => {
           }
         />
         <Route
-          path='/forum/*'
+          path='/Forum/*'
           element={
             <Layout>
               <NestedContent />

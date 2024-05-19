@@ -24,8 +24,10 @@ const DocumentDetails = () => {
   console.log("folderPath, id ", { folderPath, id });
 
   const document = useSelector((state) => {
+    console.log("state.forums", state.forums);
     return state.forums.find((el) => el.id === id);
   });
+  console.log("document __E_QOEOIJADIASDJKNASDKJASJKDSJBD", document);
   const comments = useSelector((state) => state.comments);
 
   const currentComments = useMemo(() => comments.filter((el) => el.docId === id), [comments, id]);

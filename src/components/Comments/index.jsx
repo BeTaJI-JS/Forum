@@ -12,7 +12,6 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
 
   const deleteCommentHandler = useCallback(
     (item) => {
-      console.log("ITEM DELETE=====>", { ...item });
       dispatch(deleteComment({ ...item }));
     },
     [dispatch, deleteComment],
@@ -27,9 +26,12 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
     [setEditItem, setIsAnswerForm, setIsEditAnswerForm, isOpenAnswerForm],
   );
 
-  const userForComment = useCallback((comment) => {
-    return users.find((user) => user.id === comment.createdAt);
-  },[users]);
+  const userForComment = useCallback(
+    (comment) => {
+      return users.find((user) => user.id === comment.createdAt);
+    },
+    [users],
+  );
 
   return (
     <>
@@ -126,4 +128,3 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
 };
 
 export default Comments;
-

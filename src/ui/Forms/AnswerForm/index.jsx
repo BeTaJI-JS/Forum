@@ -8,8 +8,6 @@ import { useCallback, useEffect } from "react";
 import { addComment, editComment } from "../../../store/comments";
 import MarkdownEditor from "@uiw/react-markdown-editor";
 
-// import MarkdownEditor from "@uiw/react-markdown-editor";
-
 const AnswerForm = ({
   isOpenAnswerForm,
   onCancle,
@@ -24,19 +22,14 @@ const AnswerForm = ({
   const [form] = Form.useForm();
 
   const authUser = useSelector((state) => state.auth);
-  // const comments = useSelector((state) => state.comments);
-  // console.log("comments", comments);
-  console.log("editItem-------__>", editItem);
+
   const onClose = () => {
     form.resetFields();
     onCancle();
   };
 
-  // console.log("allComments===>", allComments);
-
   const handleSubmit = useCallback(
     (values) => {
-      console.log("values answerForm===>", values);
       if (editItem && isEditAnswerForm) {
         dispatch(editComment({ id: editItem.id, ...values }));
         setEditItem(null);

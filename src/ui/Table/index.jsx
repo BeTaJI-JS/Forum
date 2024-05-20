@@ -61,17 +61,13 @@ const Table = ({ data }) => {
   const parentId = useMemo(() => {
     const paths = pathname.split("/");
     const lastPath = paths[paths.length - 1];
-    console.log("lastPath", lastPath);
+
     return lastPath;
   }, [pathname, selectedRows]);
-  console.log("parentId TABLE--->", parentId);
 
   const selectedItem = useMemo(() => {
-    console.log("data table find-->", data);
     return data.find((i) => i.key === selectedRows[0]);
   }, [data, selectedRows]);
-
-  console.log("selectedItem===>", selectedItem);
 
   const onOpenEditForm = useCallback(() => {
     if (selectedItems[0].isFolder) {
@@ -95,9 +91,6 @@ const Table = ({ data }) => {
         rowSelection={{
           selectedRows,
           onChange: (selectedRowKeys, selectedRows) => {
-            console.log("Selected Row Keys:", selectedRowKeys);
-            console.log("Selected Rows:", selectedRows);
-
             setSelectedRows(selectedRowKeys);
             setSelectedItems(selectedRows);
           },

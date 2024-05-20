@@ -14,12 +14,10 @@ const ButtonsBar = ({
   titleButton,
   onCustomClick,
   disabledCustomButton,
-
 }) => {
-  console.warn("onBackNavigate", onBackNavigate);
   const authUser = useSelector((state) => state.auth);
   const navigate = useNavigate();
-console.log('selectedRows BUTTONSBAR', selectedRows);
+
   const disabledRules = useMemo(() => {
     return !authUser || selectedRows?.length > 1;
   }, [authUser, selectedRows]);

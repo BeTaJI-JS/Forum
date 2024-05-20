@@ -13,8 +13,7 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [form] = Form.useForm();
-  console.log("parentId ITEM FORM!!!!!!!!!!!!!!!!=====>>>", parentId);
-  console.log("PATHNAME USE LOCATION====>>>>", pathname);
+
   const onClose = useCallback(() => {
     form.resetFields();
     onCancle();
@@ -23,11 +22,8 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
   const handleSubmit = useCallback(
     (values) => {
       if (selectedItems.length > 0) {
-        console.log("values==> FORM ITEM", values);
         dispatch(editItem({ id: selectedItems[0].id, ...values }));
       } else {
-        console.log("ДОБАВИЛ Запись епта!");
-
         dispatch(
           addItem({
             title: values.title,
@@ -54,7 +50,7 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
       });
     }
   }, [form, selectedItems]);
-  console.log("selectedItems В ФОРМЕ АЙТЕМА", selectedItems);
+
   return (
     <>
       <ModalForm

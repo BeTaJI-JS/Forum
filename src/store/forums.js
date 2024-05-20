@@ -1,12 +1,10 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-// import { forums } from "../data/tree";
+import { createSlice } from "@reduxjs/toolkit";
 
 const { reducer: forumsReducer, actions: forumsSliceActions } = createSlice({
   name: "forums",
   initialState: [],
   reducers: {
     addItem(state, action) {
-      console.log("forums STORE!!!!_!_!_!_!_!__!_!====>>>", action);
       state.push(action.payload);
     },
     editItem(state, action) {

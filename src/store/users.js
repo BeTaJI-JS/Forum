@@ -17,8 +17,6 @@ const usersSlice = createSlice({
         editItem.signature = action.payload.signature;
         editItem.login = action.payload.login;
       }
-      console.log("editItem REDUX", editItem);
-      console.log("STATE REDUX", state, action);
     },
   },
 });

@@ -5,13 +5,7 @@ import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
 import { addItem, editItem } from "../../../store/forums";
 
-const FolderForm = ({
-  isOpenFolderForm,
-  onCancle,
-  parentId = null,
-  selectedItems,
-  length = 0,
-}) => {
+const FolderForm = ({ isOpenFolderForm, onCancle, parentId = null, selectedItems, length = 0 }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -22,10 +16,7 @@ const FolderForm = ({
 
   const handleSubmit = useCallback(
     (values) => {
-      console.log("ДОБАВИЛ ПАПКУ!");
-
       if (selectedItems.length > 0) {
-        console.log("values==> FORM", values);
         dispatch(editItem({ id: selectedItems[0].id, ...values }));
       } else {
         dispatch(
@@ -53,15 +44,13 @@ const FolderForm = ({
 
   return (
     <ModalForm
-      title={
-        selectedItems.length <= 0 ? "Добавить папку" : "Редактировать папку"
-      }
+      title={selectedItems.length <= 0 ? "Добавить папку" : "Редактировать папку"}
       isOpen={isOpenFolderForm}
       onClose={onClose}
       onSave={form.submit}
     >
       <Form
-        name="addFolder"
+        name='addFolder'
         labelCol={{
           span: 8,
         }}
@@ -72,12 +61,12 @@ const FolderForm = ({
           maxWidth: 600,
         }}
         onFinish={handleSubmit}
-        autoComplete="off"
+        autoComplete='off'
         form={form}
       >
         <Form.Item
-          label="Название папки"
-          name="title"
+          label='Название папки'
+          name='title'
           rules={[
             {
               required: true,
@@ -85,7 +74,7 @@ const FolderForm = ({
             },
           ]}
         >
-          <Input type="text" />
+          <Input type='text' />
         </Form.Item>
       </Form>
     </ModalForm>

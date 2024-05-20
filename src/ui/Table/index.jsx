@@ -24,23 +24,23 @@ const columns = [
     title: "Название",
     dataIndex: "title",
     render: (text, record) => {
-      const parts = window.location.pathname.split("/");
-
-      console.log("parts", parts);
-      //TODO придумать роутинг для записей на форуме( сейчас при вложенной папке запись не открывается)
+      //TODO ОООООЧень хреновое решение условных конструкций но надо было бысто действовать - подумать как можно переписать сейчас работает
       return (
         <Link
           to={
-            record.isFolder
-              ? `${window.location.pathname}/${record.id}`
-              : `/Forum/document/${parts.slice(2).join("/")}/${record.id}`
+            record.isFolder && record.parentId === "/Forum/"
+              ? `${record.parentId}${record.id}`
+              : record.isFolder && record.parentId !== "/Forum/"
+                ? `${record.parentId}/${record.id}`
+                : !record.isFolder && record.parentId === "/Forum/"
+                  ? `/Forum/document${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
+                  : `/Forum/document/${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
           }
         >
           {text}
         </Link>
       );
     },
-
     width: 600,
   },
   {
@@ -52,7 +52,7 @@ const columns = [
 const Table = ({ data }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  console.log("data===>>>", data);
+
   const { pathname } = useLocation();
 
   const [isOpenFolderForm, setIsOpenFolderForm] = useState(false);
@@ -108,11 +108,11 @@ const Table = ({ data }) => {
       <FolderForm
         isOpenFolderForm={isOpenFolderForm}
         onCancle={setIsOpenFolderForm}
-        parentId={parentId}
+        parentId={pathname}
         selectedItems={selectedItems}
       />
       <ItemForm
-        parentId={parentId}
+        parentId={pathname}
         isOpenItemForm={isOpenItemForm}
         onCancle={setIsOpenItemForm}
         selectedItems={selectedItems}

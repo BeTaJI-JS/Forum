@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {  useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
@@ -9,20 +9,18 @@ const NestedContent = () => {
   const forumsData = useSelector((state) => state.forums);
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
+
 
   const forums = useMemo(() => {
     const paths = pathname.split("/");
     const lastPath = paths[paths.length - 1];
-    return forumsData.filter((el) => el.parentId === lastPath);
-  });
+    return forumsData.filter((el) => el.parentId === pathname);
+  },[forumsData, pathname]);
 
   console.log("pathname NestedContent====>", pathname);
   console.log("forums nested----->>>", forums);
 
-  const backBtn = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
+
 
   return (
     <>

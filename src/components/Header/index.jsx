@@ -56,7 +56,7 @@ export const Header = () => {
         </Logo>
         <TitleGM>General Motors Club</TitleGM>
         <HeaderTabs>
-          {authUser?.login && <Button onClick={() => navigate("forum/profile")}>Личный кабинет</Button>}
+          {authUser?.login && <Button onClick={() => navigate("Forum/profile")}>Личный кабинет</Button>}
           <AuthName>
             {authUser?.login ? `Выполнен вход: ${authUser?.login}` : "не авторизованный пользователь"}
           </AuthName>

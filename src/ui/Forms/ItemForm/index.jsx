@@ -5,18 +5,20 @@ import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
 import { useCallback, useEffect } from "react";
 import { addItem, editItem } from "../../../store/forums";
+import { useLocation } from "react-router-dom";
 
 // import MarkdownEditor from "@uiw/react-markdown-editor";
 
 const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const [form] = Form.useForm();
   console.log("parentId ITEM FORM!!!!!!!!!!!!!!!!=====>>>", parentId);
-
+  console.log("PATHNAME USE LOCATION====>>>>", pathname);
   const onClose = useCallback(() => {
     form.resetFields();
     onCancle();
-  },[onCancle, form]);
+  }, [onCancle, form]);
 
   const handleSubmit = useCallback(
     (values) => {
@@ -32,9 +34,9 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
             text: values.text,
             id: nanoid(),
             isFolder: false,
-            // key: `${parentId}-${length}`,
             key: nanoid(),
             parentId,
+            path: pathname,
           }),
         );
       }

@@ -10,8 +10,6 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
   const users = useSelector((state) => state.users);
   const auth = useSelector((state) => state.auth);
 
-  console.log("comments data", data);
-
   const deleteCommentHandler = useCallback(
     (item) => {
       console.log("ITEM DELETE=====>", { ...item });
@@ -29,6 +27,10 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
     [setEditItem, setIsAnswerForm, setIsEditAnswerForm, isOpenAnswerForm],
   );
 
+  const userForComment = useCallback((comment) => {
+    return users.find((user) => user.id === comment.createdAt);
+  },[users]);
+
   return (
     <>
       <div
@@ -37,9 +39,9 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
         Чат по текущему форуму
       </div>
       {data.length > 0 ? (
-        data.map((el) => (
+        data.map((comment) => (
           <div
-            key={el.id}
+            key={comment.id}
             style={{
               border: "2px solid #5C93CC",
               boxShadow: " 0 1px 0 rgba(0,0,0,.1)",
@@ -57,69 +59,62 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
                   marginBottom: "10px",
                 }}
               >
-                {el.createdAt === auth?.id && (
+                {comment.createdAt === auth?.id && (
                   <>
-                    <Button onClick={() => editCommentHandler(el)}>Редактировать ответ</Button>
-                    <Button onClick={() => deleteCommentHandler(el)}>Удалить ответ</Button>
+                    <Button onClick={() => editCommentHandler(comment)}>Редактировать ответ</Button>
+                    <Button onClick={() => deleteCommentHandler(comment)}>Удалить ответ</Button>
                   </>
                 )}
               </div>
               <div className='userInfo'>
-                {users.map((user) => {
-                  if (user.id === el.createdAt) {
-                    return (
-                      <div style={{ display: "flex", gap: "100px" }}>
-                        <div
-                          style={{
-                            display: "flex",
-                            gap: "10px",
-                            flexDirection: "column",
-                            textAlign: "left",
-                            maxWidth: "300px",
-                            minWidth: "300px",
-                            wordWrap: "break-word",
-                            paddingLeft: "10px",
-                            color: "#194390",
-                            fontSize: "16px",
-                            fontWeight: 700,
-                            fontFamily: "Italic",
-                          }}
-                          key={user.id}
-                        >
-                          <img src={user.avatar} width={100} />
-                          <div>Имя пользователя: {user.login}</div>
-                        </div>
-                        <MarkdownView
-                          source={el?.text}
-                          style={{
-                            display: "flex",
-                            flex: 1,
-                            borderRadius: "10px",
-                            padding: "10px",
-                            backgroundColor: "#c6d9e3",
-                            fontSize: "16px",
-                          }}
-                        />
-                      </div>
-                    );
-                  }
-                })}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "100px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "10px",
+                      flexDirection: "column",
+                      textAlign: "left",
+                      maxWidth: "300px",
+                      minWidth: "300px",
+                      wordWrap: "break-word",
+                      paddingLeft: "10px",
+                      color: "#194390",
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      fontFamily: "Italic",
+                    }}
+                  >
+                    <img src={userForComment(comment)?.avatar} width={100} />
+                    <div>Имя пользователя: {userForComment(comment)?.login}</div>
+                  </div>
+                  <MarkdownView
+                    source={comment?.text}
+                    style={{
+                      display: "flex",
+                      flex: 1,
+                      borderRadius: "10px",
+                      padding: "10px",
+                      backgroundColor: "#c6d9e3",
+                      fontSize: "16px",
+                    }}
+                  />
+                </div>
+                <MarkdownView
+                  source={userForComment(comment)?.signature}
+                  style={{
+                    fontSize: "16px",
+                    borderTop: "1px solid #194390",
+                    marginTop: 10,
+                    padding: 5,
+                  }}
+                  key={comment.id}
+                />
               </div>
-              {users.map((user) => {
-                if (user.id === el.createdAt) {
-                  return user.signature.length ? (
-                    <MarkdownView
-                      source={user?.signature}
-                      style={{ fontSize: "16px", borderTop: "1px solid #194390", marginTop: 10, padding: 5 }}
-                    />
-                  ) : (
-                    <div style={{ fontSize: "16px", borderTop: "1px solid #194390", marginTop: 10, padding: 5 }}>
-                      C уважением, {user.login}
-                    </div>
-                  );
-                }
-                return null;
-              })}
             </div>
           </div>
         ))
@@ -131,3 +126,4 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
 };
 
 export default Comments;
+

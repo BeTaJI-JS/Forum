@@ -54,6 +54,7 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
                   justifyContent: "end",
                   display: "flex",
                   gap: "10px",
+                  marginBottom: "10px",
                 }}
               >
                 {el.createdAt === auth?.id && (
@@ -67,45 +68,58 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
                 {users.map((user) => {
                   if (user.id === el.createdAt) {
                     return (
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "10px",
-                          flexDirection: "column",
-                          textAlign: "left",
-                        }}
-                        key={user.id}
-                      >
-                        <img src={user.avatar} width={100} />
-                        <div>Имя пользователя: {user.login}</div>
+                      <div style={{ display: "flex", gap: "100px" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "10px",
+                            flexDirection: "column",
+                            textAlign: "left",
+                            maxWidth: "300px",
+                            minWidth: "300px",
+                            wordWrap: "break-word",
+                            paddingLeft: "10px",
+                            color: "#194390",
+                            fontSize: "16px",
+                            fontWeight: 700,
+                            fontFamily: "Italic",
+                          }}
+                          key={user.id}
+                        >
+                          <img src={user.avatar} width={100} />
+                          <div>Имя пользователя: {user.login}</div>
+                        </div>
+                        <MarkdownView
+                          source={el?.text}
+                          style={{
+                            display: "flex",
+                            flex: 1,
+                            borderRadius: "10px",
+                            padding: "10px",
+                            backgroundColor: "#c6d9e3",
+                            fontSize: "16px",
+                          }}
+                        />
                       </div>
                     );
                   }
                 })}
               </div>
-              <div style={{ border: "2px solid red" }}>
-                <MarkdownView source={el?.text} />
-                {users.map((user) => {
-                  if (user.id === el.createdAt) {
-                    return (
-                      <div
-                        key={user.id}
-                        style={{
-                          borderTop: "1px solid black",
-                          marginTop: "10px",
-                        }}
-                      >
-                        {user.signature.length ? (
-                          <MarkdownView source={user?.signature} />
-                        ) : (
-                          `C уважением, ${user.login}`
-                        )}
-                      </div>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
+              {users.map((user) => {
+                if (user.id === el.createdAt) {
+                  return user.signature.length ? (
+                    <MarkdownView
+                      source={user?.signature}
+                      style={{ fontSize: "16px", borderTop: "1px solid #194390", marginTop: 10, padding: 5 }}
+                    />
+                  ) : (
+                    <div style={{ fontSize: "16px", borderTop: "1px solid #194390", marginTop: 10, padding: 5 }}>
+                      C уважением, {user.login}
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
         ))

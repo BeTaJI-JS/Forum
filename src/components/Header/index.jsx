@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { HeaderContent } from "./styles";
-import logo from "../../assets/logo.png";
+import { AuthName, HeaderContent, HeaderTabs, LogOutBtn, Logo, TitleGM } from "./styles";
+// import logo from "../../assets/logo.png";
+import logo from "../../assets/GM_logo.png";
+
 import IconUser from "../../assets/user.svg?react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +12,7 @@ import { removeAuth } from "../../store/auth";
 import { persistor } from "../../store";
 import { useCookies } from "react-cookie";
 import { removeUsers } from "../../store/users";
+import { Button } from "../ButtonsBar/styles";
 
 export const Header = () => {
   const dispatch = useDispatch(); // TODO тоже убрать отсюда позже
@@ -48,24 +51,27 @@ export const Header = () => {
   return (
     <>
       <HeaderContent>
-        <div>
+        <Logo>
           <img href='#' src={logo} alt='logo' />
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          {authUser?.login && <button onClick={() => navigate("forum/profile")}>Личный кабинет</button>}
-          {authUser?.login || "не авторизованный пользователь"}
+        </Logo>
+        <TitleGM>General Motors Club</TitleGM>
+        <HeaderTabs>
+          {authUser?.login && <Button onClick={() => navigate("forum/profile")}>Личный кабинет</Button>}
+          <AuthName>
+            {authUser?.login ? `Выполнен вход: ${authUser?.login}` : "не авторизованный пользователь"}
+          </AuthName>
           <IconUser onClick={() => setOpenAuthModal((prev) => !prev)} />
           {authUser?.login && (
-            <div
+            <LogOutBtn
               onClick={() => {
                 removeCookies("userInfo");
                 dispatch(removeAuth());
               }}
             >
               Выйти
-            </div>
+            </LogOutBtn>
           )}
-        </div>
+        </HeaderTabs>
       </HeaderContent>
       <AuthForm open={openAuthModal} setOpen={setOpenAuthModal} />
     </>

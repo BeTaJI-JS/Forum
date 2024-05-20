@@ -12,14 +12,16 @@ export const Header = styled.div`
 `;
 
 export const ContentContainer = styled.div`
-  border: 5px solid blue;
+  border: 4px solid #5C93CC;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   padding: 10px 20px;
   box-sizing: border-box;
   gap: 10px;
   color: black;
-  background-color: #fafafae0;
+  background-color: #dee6eb;
   overflow-y: auto;
+  max-height: 80vh;
 };
 `;

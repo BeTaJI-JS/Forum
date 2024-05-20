@@ -6,14 +6,22 @@ export const HeaderControls = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
-  fontsize: 20px;
+  font-size: 20px;
+  align-items: center;
+`;
+
+export const TextTag = styled.div`
+  padding: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #194390;
 `;
 
 export const Button = styled(ButtonAntD)`
   width: 200px;
   border-radius: 10px;
   color: white;
-  background-color: #3757e1;
+  background-color: #194390;
   padding: 10px;
   text-align: center;
   display: flex;
@@ -25,7 +33,7 @@ export const Button = styled(ButtonAntD)`
   border: none;
 
   &:hover {
-    background-color: #17309b;
-    color: white;
+    background-color: #5c93cc !important;
+    color: white !important;
   }
 `;

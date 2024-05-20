@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button, HeaderControls } from "./styles";
+import { Button, HeaderControls, TextTag } from "./styles";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import React, { useCallback } from "react";
@@ -29,7 +29,7 @@ const ButtonsBar = ({
   return (
     <>
       <HeaderControls>
-        {!onBackNavigate ? <div>Каталог форумов</div> : <button onClick={backBtn}>Назад к форумам</button>}
+        {!onBackNavigate ? <TextTag>Наш клуб</TextTag> : <Button onClick={backBtn}>Назад к форумам</Button>}
         {onItemCreate && (
           <Button onClick={onItemCreate} disabled={disabledRules || selectedRows.length >= 1} className=''>
             Добавить форум

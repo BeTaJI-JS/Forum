@@ -13,10 +13,10 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
   const [form] = Form.useForm();
   console.log("parentId ITEM FORM!!!!!!!!!!!!!!!!=====>>>", parentId);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     form.resetFields();
     onCancle();
-  };
+  },[onCancle, form]);
 
   const handleSubmit = useCallback(
     (values) => {
@@ -41,7 +41,7 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems, parentId, form],
+    [dispatch, onCancle, selectedItems, parentId, form, onClose],
   );
 
   useEffect(() => {

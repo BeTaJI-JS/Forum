@@ -88,6 +88,7 @@ const Table = ({ data }) => {
         onEditItem={onOpenEditForm}
         onItemCreate={() => setIsOpenItemForm((prev) => !prev)}
         selectedRows={selectedRows}
+        onBackNavigate={!!parentId}
       />
       <TableAntD
         columns={columns}

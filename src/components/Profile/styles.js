@@ -4,14 +4,16 @@ import MarkdownEditor from "@uiw/react-markdown-editor";
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid red;
+  align-items: start;
+  margin: 0 auto;
+
   gap: 20px;
 `;
 
 export const MarkdownView = styled(MarkdownEditor.Markdown)`
-  background-color: #fafafa4a;
+  background-color: #c6d9e3;
   color: black;
-  font-size: 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px;
 `;

@@ -27,7 +27,6 @@ const NestedContent = () => {
   return (
     <>
       <Table data={forums} />
-      <button onClick={backBtn}>Назад </button>
     </>
   );
 };

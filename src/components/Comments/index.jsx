@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../store/comments";
 import { MarkdownView } from "../Profile/styles";
+import { Button } from "../ButtonsBar/styles";
 
 const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm, setEditItem }) => {
   const dispatch = useDispatch();
@@ -30,15 +31,19 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
 
   return (
     <>
-      <div style={{ textAlign: "center", fontWeight: 700, fontSize: 20 }}>Чат по текущему форуму</div>
+      <div
+        style={{ textAlign: "center", fontWeight: 700, fontSize: 20, color: "#194390", textDecoration: "underline" }}
+      >
+        Чат по текущему форуму
+      </div>
       {data.length > 0 ? (
         data.map((el) => (
           <div
             key={el.id}
             style={{
-              border: "2px solid #39638d",
+              border: "2px solid #5C93CC",
               boxShadow: " 0 1px 0 rgba(0,0,0,.1)",
-              borderRadius: "3px",
+              borderRadius: "10px",
               padding: "10px",
             }}
           >
@@ -53,8 +58,8 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
               >
                 {el.createdAt === auth?.id && (
                   <>
-                    <button onClick={() => editCommentHandler(el)}>Редактировать ответ</button>
-                    <button onClick={() => deleteCommentHandler(el)}>Удалить ответ</button>
+                    <Button onClick={() => editCommentHandler(el)}>Редактировать ответ</Button>
+                    <Button onClick={() => deleteCommentHandler(el)}>Удалить ответ</Button>
                   </>
                 )}
               </div>
@@ -79,7 +84,7 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
                 })}
               </div>
               <div style={{ border: "2px solid red" }}>
-                <div>{el.text}</div>
+                <MarkdownView source={el?.text} />
                 {users.map((user) => {
                   if (user.id === el.createdAt) {
                     return (
@@ -91,7 +96,7 @@ const Comments = ({ data, isOpenAnswerForm, setIsAnswerForm, setIsEditAnswerForm
                         }}
                       >
                         {user.signature.length ? (
-                          <MarkdownView source={user.signature} />
+                          <MarkdownView source={user?.signature} />
                         ) : (
                           `C уважением, ${user.login}`
                         )}

@@ -50,24 +50,7 @@ export const HeaderTabs = styled.div`
     }
   }
 `;
-// export const AuthName = styled.div`
-//   ${({ authUser }) => {
-//     const userStyle = authUser
-//       ? {
-//           color: "#194390",
-//           fontSize: "24px",
-//           fontWeight: 700,
-//           fontStyle: "italic",
-//         }
-//       : {
-//           color: "#808080",
-//           fontSize: "16px",
-//           fontStyle: "normal",
-//         };
 
-//     return { style: userStyle };
-//   }}
-// `;
 export const AuthName = styled.div`
   font-size: 16px;
   font-style: italic;

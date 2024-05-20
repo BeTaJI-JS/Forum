@@ -35,38 +35,33 @@ const DocumentDetails = () => {
 
   return (
     <>
-      {/* {currentComments.length < 1 && ( */}
       <ButtonsBar customButton titleButton={"Ответить"} onCustomClick={() => setIsAnswerForm(true)} onBackNavigate />
       <div
         style={{
           textAlign: "center",
           display: "flex",
           justifyContent: "center",
-          border: "1px solid green",
-          width: "1000px",
           flexDirection: "column",
           gap: 20,
           backgroundСolor: "fafafae0",
-          margin: "0 auto",
-          fontWeight: 700,
         }}
       >
         <div
           style={{
-            border: "1px solid red",
             fontSize: "40px",
-            color: "darkBlue",
+            color: "#000082",
+            fontWeight: 700,
           }}
         >
           {document?.title}
         </div>
         <div
           style={{
-            border: "1px solid blue",
-            fontSize: "16px",
+            border: "2px solid  #5C93CC",
+            fontSize: "20px",
             padding: 10,
             background: "#fafafae0",
-            borderRadius: "5px",
+            borderRadius: "10px",
             color: "#34495E",
           }}
         >

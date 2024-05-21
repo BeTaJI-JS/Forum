@@ -1,15 +1,15 @@
-import React from "react";
-import { ModalForm } from "../../ModalForm";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
+
 import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
-import { useCallback, useEffect } from "react";
-import { addItem, editItem } from "../../../store/forums";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-// import MarkdownEditor from "@uiw/react-markdown-editor";
+import { addItem, editItem } from "store/forums";
 
-const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) => {
+import ModalForm from "ui/ModalForm";
+
+const ItemForm = ({ isOpenItemForm, onCancle, parentId = null, selectedItems }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const [form] = Form.useForm();
@@ -26,81 +26,79 @@ const ItemForm = ({ isOpenItemForm, onCancle, selectedItems, parentId = null }) 
       } else {
         dispatch(
           addItem({
-            title: values.title,
-            text: values.text,
             id: nanoid(),
             isFolder: false,
             key: nanoid(),
             parentId,
             path: pathname,
+            text: values.text,
+            title: values.title,
           }),
         );
       }
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems, parentId, form, onClose],
+    [dispatch, onClose, selectedItems, parentId, pathname],
   );
 
   useEffect(() => {
     if (selectedItems.length > 0) {
       form.setFieldsValue({
-        title: selectedItems[0].title,
         text: selectedItems[0].text,
+        title: selectedItems[0].title,
       });
     }
   }, [form, selectedItems]);
 
   return (
-    <>
-      <ModalForm
-        isOpen={isOpenItemForm}
-        onClose={onClose}
-        title={selectedItems.length <= 0 ? "Добавить запись" : "Редактировать запись"}
-        onSave={form.submit}
+    <ModalForm
+      isOpen={isOpenItemForm}
+      onClose={onClose}
+      title={selectedItems.length <= 0 ? "Добавить запись" : "Редактировать запись"}
+      onSave={form.submit}
+    >
+      <Form
+        name='itemForm'
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{
+          maxWidth: 600,
+        }}
+        onFinish={handleSubmit}
+        autoComplete='off'
+        form={form}
       >
-        <Form
-          name='itemForm'
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          onFinish={handleSubmit}
-          autoComplete='off'
-          form={form}
+        <Form.Item
+          label='Название темы'
+          name='title'
+          rules={[
+            {
+              message: "Please input your username!",
+              required: true,
+            },
+          ]}
         >
-          <Form.Item
-            label='Название темы'
-            name='title'
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input type='text' />
-          </Form.Item>
-          <Form.Item
-            label='Текст записи'
-            name='text'
-            rules={[
-              {
-                required: true,
-                message: "Введите текст записи!",
-              },
-            ]}
-          >
-            <Input.TextArea type='text' />
-          </Form.Item>
-        </Form>
-      </ModalForm>
-    </>
+          <Input type='text' />
+        </Form.Item>
+        <Form.Item
+          label='Текст записи'
+          name='text'
+          rules={[
+            {
+              message: "Введите текст записи!",
+              required: true,
+            },
+          ]}
+        >
+          <Input.TextArea type='text' />
+        </Form.Item>
+      </Form>
+    </ModalForm>
   );
 };
 

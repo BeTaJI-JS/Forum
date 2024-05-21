@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const { reducer: forumsReducer, actions: forumsSliceActions } = createSlice({
-  name: "forums",
+const { actions: forumsSliceActions, reducer: forumsReducer } = createSlice({
   initialState: [],
+  name: "forums",
   reducers: {
     addItem(state, action) {
       state.push(action.payload);

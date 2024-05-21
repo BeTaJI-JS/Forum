@@ -1,18 +1,21 @@
-import { useCallback, useState, useId, useEffect } from "react";
-import { ModalForm } from "../../ModalForm";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect } from "react";
+
 import { Form, Input } from "antd";
 import { nanoid } from "nanoid";
-import { addItem, editItem } from "../../../store/forums";
+import { useDispatch } from "react-redux";
 
-const FolderForm = ({ isOpenFolderForm, onCancle, parentId = null, selectedItems, length = 0 }) => {
+import { addItem, editItem } from "store/forums";
+
+import ModalForm from "ui/ModalForm";
+
+const FolderForm = ({ isOpenFolderForm, onCancle, parentId = null, selectedItems }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     form.resetFields();
     onCancle();
-  };
+  }, [onCancle, form]);
 
   const handleSubmit = useCallback(
     (values) => {
@@ -21,26 +24,26 @@ const FolderForm = ({ isOpenFolderForm, onCancle, parentId = null, selectedItems
       } else {
         dispatch(
           addItem({
-            title: values.title,
             id: nanoid(),
             isFolder: true,
-            // key: `${parentId}-${length}`,
+
             key: nanoid(),
             parentId,
+            title: values.title,
           }),
         );
       }
 
       onClose();
     },
-    [dispatch, onCancle, selectedItems, parentId],
+    [dispatch, onClose, selectedItems, parentId],
   );
 
   useEffect(() => {
     if (selectedItems.length > 0) {
       form.setFieldsValue({ title: selectedItems[0].title });
     }
-  }, [selectedItems.length, form]);
+  }, [selectedItems, form]);
 
   return (
     <ModalForm
@@ -69,8 +72,8 @@ const FolderForm = ({ isOpenFolderForm, onCancle, parentId = null, selectedItems
           name='title'
           rules={[
             {
-              required: true,
               message: "Введите название папки!",
+              required: true,
             },
           ]}
         >

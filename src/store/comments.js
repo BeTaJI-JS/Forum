@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const { reducer: comments, actions: commentsActions } = createSlice({
-  name: "comments",
+const { actions: commentsActions, reducer: comments } = createSlice({
   initialState: [],
+  name: "comments",
   reducers: {
     addComment(state, action) {
       state.push(action.payload);
+    },
+    deleteComment(state, action) {
+      return state.filter((el) => el.id !== action.payload.id);
     },
     editComment(state, action) {
       const editItem = state.find((el) => el.id === action.payload.id);
@@ -16,12 +19,9 @@ const { reducer: comments, actions: commentsActions } = createSlice({
         }
       });
     },
-    deleteComment(state, action) {
-      return (state = state.filter((el) => el.id !== action.payload.id));
-    },
   },
 });
 
-export const { addComment, editComment, deleteComment } = commentsActions;
+export const { addComment, deleteComment, editComment } = commentsActions;
 
 export default comments;

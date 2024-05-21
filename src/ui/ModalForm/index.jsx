@@ -1,22 +1,19 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import { Button, Modal } from "antd";
-import { useDispatch } from "react-redux";
 
-export const ModalForm = ({ children, disableFooter, onClose, title, isOpen, onSave }) => {
-  const dispatch = useDispatch();
-
+const ModalForm = ({ children, disableFooter, isOpen, onClose, onSave, title }) => {
   const onCancel = useCallback(() => {
     if (onClose) {
       onClose();
     }
-  }, [dispatch, onClose]);
+  }, [onClose]);
 
   const onSaveHandler = useCallback(() => {
     if (onSave) {
       onSave();
     }
-  }, [dispatch, onSave]);
+  }, [onSave]);
 
   const footer = useMemo(
     () => [
@@ -31,7 +28,7 @@ export const ModalForm = ({ children, disableFooter, onClose, title, isOpen, onS
           ]
         : []),
     ],
-    [onCancel, disableFooter],
+    [onCancel, onSaveHandler, disableFooter],
   );
 
   return (
@@ -40,3 +37,5 @@ export const ModalForm = ({ children, disableFooter, onClose, title, isOpen, onS
     </Modal>
   );
 };
+
+export default ModalForm;

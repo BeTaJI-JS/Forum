@@ -1,15 +1,18 @@
-import React, { useCallback, useState } from "react";
-import { ContentContainer } from "../../ui/layout/styles";
-import { MarkdownView, ProfileContainer } from "./styles";
+import { useCallback, useState } from "react";
+
 import { useSelector } from "react-redux";
 
-import ProfileForm from "../../ui/Forms/Profile";
-import MarkdownEditor from "@uiw/react-markdown-editor";
-import ButtonsBar from "../ButtonsBar";
-import { Button } from "../ButtonsBar/styles";
+import ButtonsBar from "components/ButtonsBar";
+import { Button } from "components/ButtonsBar/styles";
+
+import ProfileForm from "ui/Forms/Profile";
+import { ContentContainer } from "ui/layout/styles";
+
+import { MarkdownView, ProfileContainer } from "./styles";
 
 const Profile = () => {
   const [isOpenProfileForm, setIsOpenProfileForm] = useState(false);
+
   const authUser = useSelector((state) => state.auth);
 
   const editBtn = useCallback(() => {
@@ -18,26 +21,26 @@ const Profile = () => {
 
   return (
     <ContentContainer>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
         <ButtonsBar onBackNavigate />
 
-        <div style={{ fontSize: "24px", fontWeight: "700", color: "#194390", textDecoration: "underline" }}>
+        <div style={{ color: "#194390", fontSize: "24px", fontWeight: "700", textDecoration: "underline" }}>
           Личный кабинет
         </div>
       </div>
       <ProfileContainer>
-        <div style={{ display: "flex", gap: "50px", alignItems: "center", width: "200px", height: "200px" }}>
-          <img src={authUser?.avatar} alt='аватар пользователя' style={{ width: "100%", height: "100%" }} />
+        <div style={{ alignItems: "center", display: "flex", gap: "50px", height: "200px", width: "200px" }}>
+          <img src={authUser?.avatar} alt='аватар пользователя' style={{ height: "100%", width: "100%" }} />
         </div>
-        <div style={{ fontSize: 20, color: "#194390", fontWeight: 700 }}>Имя пользователя: {authUser?.login}</div>
+        <div style={{ color: "#194390", fontSize: 20, fontWeight: 700 }}>Имя пользователя: {authUser?.login}</div>
         <div
           style={{
-            display: "flex",
-            gap: "50px",
             alignItems: "center",
-            fontSize: 20,
             color: "#194390",
+            display: "flex",
+            fontSize: 20,
             fontWeight: 700,
+            gap: "50px",
           }}
         >
           Подпись: <MarkdownView source={authUser?.signature} className='markdownView' />

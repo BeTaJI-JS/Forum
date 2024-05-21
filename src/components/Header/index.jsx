@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { AuthName, HeaderContent, HeaderTabs, LogOutBtn, Logo, TitleGM } from "./styles";
-// import logo from "../../assets/logo.png";
-import logo from "../../assets/GM_logo.png";
+import { useEffect, useState } from "react";
 
-import IconUser from "../../assets/user.svg?react";
-
+import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AuthForm from "../../ui/Forms/Auth";
-import { removeAuth } from "../../store/auth";
-import { persistor } from "../../store";
-import { useCookies } from "react-cookie";
-import { removeUsers } from "../../store/users";
-import { Button } from "../ButtonsBar/styles";
 
-export const Header = () => {
+import logo from "assets/GM_logo.png";
+import IconUser from "assets/user.svg?react";
+
+import { Button } from "components/ButtonsBar/styles";
+
+import { removeAuth } from "store/auth";
+
+import AuthForm from "ui/Forms/Auth";
+
+import { AuthName, HeaderContent, HeaderTabs, LogOutBtn, Logo, TitleGM } from "./styles";
+
+const Header = () => {
   const dispatch = useDispatch(); // TODO тоже убрать отсюда позже
   const [openAuthModal, setOpenAuthModal] = useState(false);
 
@@ -22,17 +23,16 @@ export const Header = () => {
 
   const navigate = useNavigate();
 
-  //TODO придумать логику по разлогину и чистке куки
+  // TODO придумать логику по разлогину и чистке куки
 
   const authUser = useSelector((state) => state.auth);
 
-  console.log("cookies.userInfo===>", cookies.userInfo);
   useEffect(() => {
     if (!cookies.userInfo) {
-      console.log("Сброс авторизации");
+      // console.log("Сброс авторизации");
       dispatch(removeAuth());
     }
-  }, [dispatch, cookies, removeAuth]);
+  }, [dispatch, cookies]);
 
   // useEffect(() => {
   //   return () => {

@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import MarkdownEditor from "@uiw/react-markdown-editor";
+import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
   display: flex;

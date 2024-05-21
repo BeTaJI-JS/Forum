@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useMemo, useState } from "react";
 
-import ButtonsBar from "../ButtonsBar";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+import ButtonsBar from "components/ButtonsBar";
+import Comments from "components/Comments";
+
 import AnswerForm from "ui/Forms/AnswerForm";
-import Comments from "../Comments";
 
 const DocumentDetails = () => {
   const [isOpenAnswerForm, setIsAnswerForm] = useState(false);
@@ -14,16 +16,14 @@ const DocumentDetails = () => {
   const params = useParams();
   const pathIds = params["*"];
 
-  const { folderPath, id } = useMemo(() => {
-    return {
-      folderPath: pathIds.split("/").slice(0, -1).join("/"),
+  const { id } = useMemo(
+    () => ({
       id: pathIds.split("/").at(-1),
-    };
-  }, [pathIds]);
+    }),
+    [pathIds],
+  );
 
-  const document = useSelector((state) => {
-    return state.forums.find((el) => el.id === id);
-  });
+  const document = useSelector((state) => state.forums.find((el) => el.id === id));
 
   const comments = useSelector((state) => state.comments);
 
@@ -31,21 +31,21 @@ const DocumentDetails = () => {
 
   return (
     <>
-      <ButtonsBar customButton titleButton={"Ответить"} onCustomClick={() => setIsAnswerForm(true)} onBackNavigate />
+      <ButtonsBar customButton titleButton='Ответить' onCustomClick={() => setIsAnswerForm(true)} onBackNavigate />
       <div
         style={{
-          textAlign: "center",
+          backgroundСolor: "fafafae0",
           display: "flex",
-          justifyContent: "center",
           flexDirection: "column",
           gap: 20,
-          backgroundСolor: "fafafae0",
+          justifyContent: "center",
+          textAlign: "center",
         }}
       >
         <div
           style={{
-            fontSize: "40px",
             color: "#000082",
+            fontSize: "40px",
             fontWeight: 700,
           }}
         >
@@ -53,12 +53,12 @@ const DocumentDetails = () => {
         </div>
         <div
           style={{
-            border: "2px solid  #5C93CC",
-            fontSize: "20px",
-            padding: 10,
             background: "#fafafae0",
+            border: "2px solid  #5C93CC",
             borderRadius: "10px",
             color: "#34495E",
+            fontSize: "20px",
+            padding: 10,
           }}
         >
           {document?.text}
@@ -76,7 +76,6 @@ const DocumentDetails = () => {
         docId={id}
         onCancle={setIsAnswerForm}
         folderId={document?.parentId}
-        // allComments={currentComments}
         isEditAnswerForm={isEditAnswerForm}
         editItem={editItem}
         setEditItem={setEditItem}

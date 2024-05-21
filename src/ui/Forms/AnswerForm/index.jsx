@@ -1,32 +1,32 @@
-import React from "react";
-import { ModalForm } from "../../ModalForm";
-import { useDispatch, useSelector } from "react-redux";
-import { Form, Input } from "antd";
-import { nanoid } from "nanoid";
 import { useCallback, useEffect } from "react";
 
-import { addComment, editComment } from "../../../store/comments";
 import MarkdownEditor from "@uiw/react-markdown-editor";
+import { Form } from "antd";
+import { nanoid } from "nanoid";
+import { useDispatch, useSelector } from "react-redux";
 
-const AnswerForm = ({
-  isOpenAnswerForm,
-  onCancle,
-  // selectedItems,
-  docId, // айдишник темы на который идет ответ
-  folderId = null, // айдишник родителя( папки)
-  editItem, // все комментарии текущего форума
-  isEditAnswerForm, // флаг для редактирования
+import { addComment, editComment } from "store/comments";
+
+import ModalForm from "ui/ModalForm";
+
+function AnswerForm({
+  docId,
+  editItem,
+  folderId = null, // айдишник темы на который идет ответ
+  isEditAnswerForm, // айдишник родителя( папки)
+  isOpenAnswerForm, // все комментарии текущего форума
+  onCancle, // флаг для редактирования
   setEditItem, // сетер для сброса редактированного лемента
-}) => {
+}) {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const authUser = useSelector((state) => state.auth);
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     form.resetFields();
     onCancle();
-  };
+  }, [onCancle, form]);
 
   const handleSubmit = useCallback(
     (values) => {
@@ -37,16 +37,16 @@ const AnswerForm = ({
         dispatch(
           addComment({
             ...values,
+            createdAt: authUser.id,
             docId,
             folderId,
-            createdAt: authUser.id,
             id: nanoid(),
           }),
         );
       }
       onClose();
     },
-    [dispatch, onCancle, docId, folderId, editItem, isEditAnswerForm],
+    [dispatch, docId, folderId, editItem, isEditAnswerForm, authUser, onClose, setEditItem],
   );
 
   useEffect(() => {
@@ -58,49 +58,47 @@ const AnswerForm = ({
   }, [form, editItem, isEditAnswerForm]);
 
   return (
-    <>
-      <ModalForm
-        isOpen={isOpenAnswerForm}
-        onClose={onClose}
-        title={!editItem ? "Добавление ответа на сообщение" : "Редактирование ответа на сообщение"}
-        onSave={form.submit}
+    <ModalForm
+      isOpen={isOpenAnswerForm}
+      onClose={onClose}
+      title={!editItem ? "Добавление ответа на сообщение" : "Редактирование ответа на сообщение"}
+      onSave={form.submit}
+    >
+      <Form
+        name='answerForm'
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{
+          maxWidth: 600,
+        }}
+        onFinish={handleSubmit}
+        autoComplete='off'
+        form={form}
       >
-        <Form
-          name='answerForm'
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          onFinish={handleSubmit}
-          autoComplete='off'
-          form={form}
+        <Form.Item
+          label='Текст ответа'
+          name='text'
+          rules={[
+            {
+              message: "Введите текст ответа!",
+              required: true,
+            },
+          ]}
         >
-          <Form.Item
-            label='Текст ответа'
-            name='text'
-            rules={[
-              {
-                required: true,
-                message: "Введите текст ответа!",
-              },
-            ]}
-          >
-            <MarkdownEditor
-              value={form.getFieldValue("text")}
-              onChange={(text) => form.setFieldValue({ text })}
-              toolbars={["bold", "italic", "image", " quote"]}
-              placeholder={"Текст ответа"}
-            />
-          </Form.Item>
-        </Form>
-      </ModalForm>
-    </>
+          <MarkdownEditor
+            value={form.getFieldValue("text")}
+            onChange={(text) => form.setFieldValue({ text })}
+            toolbars={["bold", "italic", "image", " quote"]}
+            placeholder='Текст ответа'
+          />
+        </Form.Item>
+      </Form>
+    </ModalForm>
   );
-};
+}
 
 export default AnswerForm;

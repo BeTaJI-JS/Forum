@@ -1,55 +1,52 @@
-import React, { useCallback, useMemo, useState } from "react";
+/* eslint-disable no-nested-ternary */
+import { useCallback, useMemo, useState } from "react";
+
 import { Table as TableAntD } from "antd";
+import { Link, useLocation } from "react-router-dom";
+
 import FileIcon from "assets/file.svg?react";
 import FolderIcon from "assets/folder.svg?react";
 
-import { Link } from "react-router-dom";
-
 import ButtonsBar from "components/ButtonsBar";
 
-import { useLocation } from "react-router-dom";
-import ItemForm from "ui/Forms/ItemForm";
 import FolderForm from "ui/Forms/FolderForm";
+import ItemForm from "ui/Forms/ItemForm";
 
 const columns = [
   {
-    title: <FileIcon />,
     dataIndex: "isFolder",
-    render: (value) => {
-      return value ? <FolderIcon /> : <FileIcon />;
-    },
+    render: (value) => (value ? <FolderIcon /> : <FileIcon />),
+    title: <FileIcon />,
     width: 50,
   },
   {
-    title: "Название",
     dataIndex: "title",
-    render: (text, record) => {
-      //TODO ОООООЧень хреновое решение условных конструкций но надо было бысто действовать - подумать как можно переписать сейчас работает
-      return (
-        <Link
-          to={
-            record.isFolder && record.parentId === "/Forum/"
-              ? `${record.parentId}${record.id}`
-              : record.isFolder && record.parentId !== "/Forum/"
-                ? `${record.parentId}/${record.id}`
-                : !record.isFolder && record.parentId === "/Forum/"
-                  ? `/Forum/document${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
-                  : `/Forum/document/${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
-          }
-        >
-          {text}
-        </Link>
-      );
-    },
+    render: (text, record) => (
+      // TODO ОООООЧень хреновое решение условных конструкций но надо было бысто действовать - подумать как можно переписать сейчас работает
+      <Link
+        to={
+          record.isFolder && record.parentId === "/Forum/"
+            ? `${record.parentId}${record.id}`
+            : record.isFolder && record.parentId !== "/Forum/"
+              ? `${record.parentId}/${record.id}`
+              : !record.isFolder && record.parentId === "/Forum/"
+                ? `/Forum/document${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
+                : `/Forum/document/${record.parentId.split("/Forum/").slice(1).join("/")}/${record.id}`
+        }
+      >
+        {text}
+      </Link>
+    ),
+    title: "Название",
     width: 600,
   },
   {
-    title: "Текст",
     dataIndex: "text",
+    title: "Текст",
   },
 ];
 
-const Table = ({ data }) => {
+function Table({ data }) {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -63,11 +60,7 @@ const Table = ({ data }) => {
     const lastPath = paths[paths.length - 1];
 
     return lastPath;
-  }, [pathname, selectedRows]);
-
-  const selectedItem = useMemo(() => {
-    return data.find((i) => i.key === selectedRows[0]);
-  }, [data, selectedRows]);
+  }, [pathname]);
 
   const onOpenEditForm = useCallback(() => {
     if (selectedItems[0].isFolder) {
@@ -89,11 +82,11 @@ const Table = ({ data }) => {
       <TableAntD
         columns={columns}
         rowSelection={{
-          selectedRows,
-          onChange: (selectedRowKeys, selectedRows) => {
+          onChange: (selectedRowKeys, selectedElements) => {
             setSelectedRows(selectedRowKeys);
-            setSelectedItems(selectedRows);
+            setSelectedItems(selectedElements);
           },
+          selectedRows,
         }}
         pagination={false}
         dataSource={data}
@@ -112,6 +105,6 @@ const Table = ({ data }) => {
       />
     </>
   );
-};
+}
 
 export default Table;

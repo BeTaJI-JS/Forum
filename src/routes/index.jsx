@@ -20,7 +20,7 @@ const Root = () => {
             </>
           }
         />
-        <Route
+        {/* <Route // удалит ькомпонент и все чт ос ним связано - использовать NestedContent ( переименовать его в Main)
           path='/Forum'
           exact
           element={
@@ -28,7 +28,7 @@ const Root = () => {
               <App />
             </Layout>
           }
-        />
+        /> */}
         <Route
           path='/Forum/document/*'
           element={

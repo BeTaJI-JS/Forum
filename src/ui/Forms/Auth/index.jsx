@@ -136,12 +136,18 @@ const AuthForm = ({ open, setOpen }) => {
                 }}
               >
                 <Button type='primary' htmlType='submit'>
-                  Submit
+                  Войти
                 </Button>
               </Form.Item>
             </Form>
             <Form.Item style={{ display: "flex", justifyContent: "center" }}>
-              <a onClick={() => setIsRegistration(true)}>Нет аккаунта? Зарегистрируй!</a>
+              <Button
+                type='link'
+                onClick={() => setIsRegistration(true)}
+                style={{ border: "none", outline: "none", textDecoration: "none" }}
+              >
+                Нет аккаунта? Зарегистрируй!
+              </Button>
             </Form.Item>
           </>
         )}
@@ -207,7 +213,13 @@ const AuthForm = ({ open, setOpen }) => {
               </Form.Item>
             </Form>
             <Form.Item style={{ display: "flex", justifyContent: "center" }}>
-              <a onClick={() => setIsRegistration(false)}>Уже есть аккаунт - перейти к авторизации</a>
+              <Button
+                type='link'
+                onClick={() => setIsRegistration(false)}
+                style={{ border: "none", outline: "none", textDecoration: "none" }}
+              >
+                Уже есть аккаунт - перейти к авторизации
+              </Button>
             </Form.Item>
           </>
         )}

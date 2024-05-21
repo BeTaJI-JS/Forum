@@ -15,6 +15,7 @@ module.exports = {
   settings: { react: { version: "18.2" } },
   plugins: ["sort-keys", "sort-destructure-keys", "import", "react-refresh"],
   rules: {
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }], // отключить проверку devDependencies
     "import/prefer-default-export": 0, // отключить предпочтение импорта не по дефолту если в файле один экспорт
     "import/extensions": 0, // отключить проверку расширений импорта ( без расширения файлов)
     "react/function-component-definition": 0, //
